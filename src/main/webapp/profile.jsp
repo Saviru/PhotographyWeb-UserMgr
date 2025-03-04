@@ -1,0 +1,68 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.userMgr.User" %>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h2>Edit Your Profile</h2>
+    
+    <% User user = (User)session.getAttribute("user"); %>
+    <% if (user != null) { %>
+        <div class="form-container">
+            <form action="ProfileServlet" method="post">
+                <input type="hidden" name="originalUsername" value="<%= user.getUsername() %>">
+                <input type="hidden" name="originalEmail" value="<%= user.getEmail() %>">
+                
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" value="<%= user.getUsername() %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" value="<%= user.getPassword() %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" value="<%= user.getEmail() %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="gender">Gender:</label>
+                    <input type="text" id="gender" name="gender" value="<%= user.getGender() %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <input type="text" id="address" name="address" value="<%= user.getOriginalAddress() %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="text" id="phone" name="phone" value="<%= user.getPhone() %>" required>
+                </div>
+                
+                <div class="form-group">
+                    <input type="submit" value="Update Profile" class="button">
+                    <a href="dashboard.jsp" style="margin-left: 10px;">Back to Dashboard</a>
+                </div>
+            </form>
+            
+            <% if (request.getAttribute("message") != null) { %>
+                <p style="color: green;"><%= request.getAttribute("message") %></p>
+            <% } %>
+            <% if (request.getAttribute("error") != null) { %>
+                <p style="color: red;"><%= request.getAttribute("error") %></p>
+            <% } %>
+        </div>
+    <% } else { %>
+        <p>No user found in session. Please <a class="refLink" href="login.jsp" >login</a>.</p>
+    <% } %>
+</body>
+</html>
