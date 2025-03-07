@@ -54,12 +54,23 @@ public class User {
         return address;
     }
 
+    /**
+     * Sets the address after validating and replacing commas with @;%
+     * @param address the address to set
+     */
     public void setAddress(String address) {
-         this.address = address.replace(",", "@;%");
-         this.address = this.address.replace(" ", "");
-        
+        if (address != null) {
+            // Replace all commas with "@;%"
+            this.address = address.replace(",", "@;%");
+        } else {
+            this.address = "";
+        }
     }
     
+    /**
+     * Returns the original address with commas restored
+     * @return address with original commas
+     */
     public String getOriginalAddress() {
         if (address != null) {
             return address.replace("@;%", ",");

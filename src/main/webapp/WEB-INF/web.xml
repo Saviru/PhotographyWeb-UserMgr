@@ -31,6 +31,33 @@
         <url-pattern>/ProfileServlet</url-pattern>
     </servlet-mapping>
     
+    <servlet>
+        <servlet-name>PhotographerServlet</servlet-name>
+        <servlet-class>com.photographerMgr.PhotographerServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotographerServlet</servlet-name>
+        <url-pattern>/PhotographerServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PhotographerLoginServlet</servlet-name>
+        <servlet-class>com.photographerMgr.PhotographerLoginServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotographerLoginServlet</servlet-name>
+        <url-pattern>/PhotographerLoginServlet</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>PhotographerProfileServlet</servlet-name>
+        <servlet-class>com.photographerMgr.PhotographerProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PhotographerProfileServlet</servlet-name>
+        <url-pattern>/PhotographerProfileServlet</url-pattern>
+    </servlet-mapping>
+    
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
         <welcome-file>login.jsp</welcome-file>

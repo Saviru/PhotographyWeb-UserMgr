@@ -1,4 +1,4 @@
-package com.userMgr;
+package com.photographerMgr;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
-public class UserProfileManager {
+public class PhotographerProfileManager {
     private static final String FILE_PATH = "C:\\Users\\savir\\Documents\\Java projects\\photoWeb\\src\\main\\webapp\\WEB-INF\\users.txt";
     
     /**
@@ -19,7 +19,7 @@ public class UserProfileManager {
      * @param updatedUser the updated user information
      * @return true if update was successful, false otherwise
      */
-    public boolean updateUserProfile(String originalUsername, String originalEmail, User updatedUser) {
+    public boolean updateUserProfile(String originalUsername, String originalEmail, Photographer updatedUser) {
         Queue<String> userRecords = loadUsersIntoQueue();
         boolean userFound = false;
         

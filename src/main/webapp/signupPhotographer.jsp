@@ -1,4 +1,4 @@
-<!-- Not working  -->
+<!-- Not finished  -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,37 +13,42 @@
 </head>
 <body>
     <h2>Photographer Registration Form</h2>
-    <form action="UserServlet" method="post">
+    <form action="PhotographerServlet" method="post">
     
         <div class="inputs">
         	<input type="text" id="username" name="username" required>
-        	<label for="username">Username:</label>
+        	<label for="username">Username</label>
         </div>
         
         <div class="inputs">
         	<input type="password" id="password" name="password" required>
-        	<label for="password">Password:</label>	
+        	<label for="password">Password</label>	
         </div>	
         
         <div class="inputs">
         	<input type="email" id="email" name="email" required>
-        	<label for="email">Email:</label>	
+        	<label for="email">Email</label>	
         </div>
         
         <div class="inputs">
         	<input type="text" id="gender" name="gender" required>
-        	<label for="gender">Gender:</label>
+        	<label for="gender">Gender</label>
        </div>
        
        <div class="inputs">
         	<input type="text" id="address" name="address" required>
-        	<label for="address">Address:</label>
+        	<label for="address">Address</label>
         </div>	
         
         <div class="inputs">
         	<input type="text" id="phone" name="phone" required>	
-        	<label for="phone">Phone Number:</label>
-        </div>	
+        	<label for="phone">Phone Number</label>
+        </div>
+        
+        <div class="inputs">
+        	<input type="text" id="skills" name="skills" required>
+        	<label for="skills">Skills</label>
+        </div>		
 
         
         <div class="inpBtn">
@@ -51,9 +56,9 @@
         </div>
     </form>
     
-    <p>Already have an photographer account? <a href="loginPhotographer.jsp">Login here</a></p>
+    <p>Already have an photographer account? <a class="refLink" href="loginPhotographer.jsp">Login here</a></p>
     <br>
-    <p>Are you a customer? <a href="signup.jsp">Signup here</a></p>
+    <p>Are you a customer? <a class="refLink" href="signup.jsp">Signup here</a></p>
     <br>
     
     <% if (request.getAttribute("errorMessage") != null) { %>

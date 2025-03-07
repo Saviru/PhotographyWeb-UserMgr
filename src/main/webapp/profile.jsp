@@ -18,39 +18,39 @@
                 <input type="hidden" name="originalUsername" value="<%= user.getUsername() %>">
                 <input type="hidden" name="originalEmail" value="<%= user.getEmail() %>">
                 
-                <div class="form-group">
-                    <label for="username">Username:</label>
+                <div class="form-group inputs">
                     <input type="text" id="username" name="username" value="<%= user.getUsername() %>" required>
+                    <label for="username">Username:</label>
                 </div>
                 
-                <div class="form-group">
-                    <label for="password">Password:</label>
+                <div class="form-group inputs">
                     <input type="password" id="password" name="password" value="<%= user.getPassword() %>" required>
+                    <label for="password">Password:</label>
                 </div>
-                
-                <div class="form-group">
-                    <label for="email">Email:</label>
+
+                <div class="form-group inputs">
                     <input type="email" id="email" name="email" value="<%= user.getEmail() %>" required>
+                    <label for="email">Email:</label>
                 </div>
                 
-                <div class="form-group">
-                    <label for="gender">Gender:</label>
+                <div class="form-group inputs">
                     <input type="text" id="gender" name="gender" value="<%= user.getGender() %>" required>
+                    <label for="gender">Gender:</label>
                 </div>
                 
-                <div class="form-group">
-                    <label for="address">Address:</label>
+                <div class="form-group inputs">
                     <input type="text" id="address" name="address" value="<%= user.getOriginalAddress() %>" required>
+                    <label for="address">Address:</label>
                 </div>
                 
-                <div class="form-group">
-                    <label for="phone">Phone Number:</label>
+                <div class="form-group inputs">
                     <input type="text" id="phone" name="phone" value="<%= user.getPhone() %>" required>
+                    <label for="phone">Phone Number:</label>
                 </div>
                 
-                <div class="form-group">
+                <div class="inpBtn btns">
+                    <a class="refBtn"  href="dashboard.jsp">Back to Dashboard</a>
                     <input type="submit" value="Update Profile" class="button">
-                    <a href="dashboard.jsp" style="margin-left: 10px;">Back to Dashboard</a>
                 </div>
             </form>
             

@@ -15,32 +15,32 @@
     
         <div class="inputs">
         	<input type="text" id="username" name="username" required>
-        	<label for="username">Username:</label>
+        	<label for="username">Username</label>
         </div>
         
         <div class="inputs">
         	<input type="password" id="password" name="password" required>
-        	<label for="password">Password:</label>	
+        	<label for="password">Password</label>	
         </div>	
         
         <div class="inputs">
         	<input type="email" id="email" name="email" required>
-        	<label for="email">Email:</label>	
+        	<label for="email">Email</label>	
         </div>
         
         <div class="inputs">
         	<input type="text" id="gender" name="gender" required>
-        	<label for="gender">Gender:</label>
+        	<label for="gender">Gender</label>
        </div>
        
        <div class="inputs">
         	<input type="text" id="address" name="address" required>
-        	<label for="address">Address:</label>
+        	<label for="address">Address</label>
         </div>	
         
         <div class="inputs">
         	<input type="text" id="phone" name="phone" required>	
-        	<label for="phone">Phone Number:</label>
+        	<label for="phone">Phone Number</label>
         </div>	
 
         
@@ -52,7 +52,7 @@
     <p>Already have an account? <a class="refLink" href="login.jsp">Login here</a></p>
     <br>
     
-    <p>Are you a photographer? <a class="refLink" href="signupPhotographer.jsp">Register here</a></p>
+    <p>Are you a photographer? <a class="refLink" href="Photographers/signupPhotographer.jsp">Register here</a></p>
     <br>
     
     <% if (request.getAttribute("errorMessage") != null) { %>

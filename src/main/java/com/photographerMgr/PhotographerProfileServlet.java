@@ -1,4 +1,4 @@
-package com.userMgr;
+package com.photographerMgr;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,12 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class ProfileServlet extends HttpServlet {
+public class PhotographerProfileServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User currentUser = (User) session.getAttribute("user");
+        Photographer currentUser = (Photographer) session.getAttribute("photographer");
         
         if (currentUser == null) {
             response.sendRedirect("login.jsp");
@@ -29,9 +29,10 @@ public class ProfileServlet extends HttpServlet {
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
+        String skills = request.getParameter("skills");
         
         // Create a UserValidator to check for duplicates
-        UserValidator validator = new UserValidator();
+        PhotographerValidator validator = new PhotographerValidator();
         
         // Validate username
         if (!username.equals(originalUsername)) {
@@ -60,14 +61,14 @@ public class ProfileServlet extends HttpServlet {
             }
         }
         
-        User updatedUser = new User(username, password, email, gender, address, phone);
+        Photographer updatedPG = new Photographer(username, password, email, gender, address, phone, skills);
         
-        UserProfileManager profileManager = new UserProfileManager();
-        boolean success = profileManager.updateUserProfile(originalUsername, originalEmail, updatedUser);
+        PhotographerProfileManager profileManager = new PhotographerProfileManager();
+        boolean success = profileManager.updateUserProfile(originalUsername, originalEmail, updatedPG);
         
         if (success) {
             // Update the session with the new user data
-            session.setAttribute("user", updatedUser);
+            session.setAttribute("photographer", updatedPG);
             request.setAttribute("message", "Profile updated successfully!");
         } else {
             request.setAttribute("error", "Failed to update profile. Please try again.");

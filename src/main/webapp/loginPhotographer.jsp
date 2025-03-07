@@ -1,4 +1,4 @@
-<!-- Not working  -->
+<!-- Not finished -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -13,7 +13,7 @@
 </head>
 <body>
     <h1>Login as a photographer</h1>
-    <form action="LoginServlet" method="post">
+    <form action="PhotographerLoginServlet" method="post">
         <div class="inputs">
         	<input type="text" id="userIdentifier" name="userIdentifier" required>
         	<label for="userIdentifier">Username or Email:</label>
@@ -28,7 +28,7 @@
         </div>	
     </form>
     
-    <p>Don't have an account?   <a href="signupPhotographer.jsp">Register here</a></p>
+    <p>Don't have an account?   <a class="refLink" href="signupPhotographer.jsp">Register here</a></p>
     <br>
     <p>Are you a customer?   <a class="refLink" href="login.jsp">Login here</a></p>
     <br>

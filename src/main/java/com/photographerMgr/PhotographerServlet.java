@@ -1,4 +1,4 @@
-package com.userMgr;
+package com.photographerMgr;
 
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UserServlet extends HttpServlet {
+public class PhotographerServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private static final String FILE_PATH = "C:\\Users\\savir\\Documents\\Java projects\\photoWeb\\src\\main\\webapp\\WEB-INF\\users.txt";
 
@@ -20,9 +20,10 @@ public class UserServlet extends HttpServlet {
             String gender = request.getParameter("gender");
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
+            String skills = request.getParameter("skills");
             
             // Create validator to check for duplicate values
-            UserValidator validator = new UserValidator();
+            PhotographerValidator validator = new PhotographerValidator();
             
             // Check for duplicate username
             if (validator.isDuplicateUsername(username)) {
@@ -46,7 +47,7 @@ public class UserServlet extends HttpServlet {
             }
             
             // All validations passed, create user
-            User user = new User(username, password, email, gender, address, phone);
+            Photographer user = new Photographer(username, password, email, gender, address, phone, skills);
             
             try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
                 writer.write(user.toString() + System.lineSeparator());

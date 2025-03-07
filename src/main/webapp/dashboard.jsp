@@ -20,7 +20,7 @@
         <p>Address: <%= user.getOriginalAddress() %></p>
         <p>Phone: <%= user.getPhone() %></p>
         
-        <p>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-03 15:15:35</p>
+        <p>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-05 17:38:21</p>
         <p>Current User's Login: Saviru</p>
         
         <% 
@@ -34,7 +34,7 @@
             <a href="logout.jsp" class="button">Logout</a>
         </div>
     <% } else { %>
-        <p>No user found in session. Please <a class="refLink"  href="login.jsp">login</a>.</p>
+        <p>No user found in session. Please <a href="login.jsp">login</a>.</p>
     <% } %>
 </body>
 </html>
