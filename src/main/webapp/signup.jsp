@@ -52,7 +52,7 @@
     <p>Already have an account? <a class="refLink" href="login.jsp">Login here</a></p>
     <br>
     
-    <p>Are you a photographer? <a class="refLink" href="Photographers/signupPhotographer.jsp">Register here</a></p>
+    <p>Are you a photographer? <a class="refLink" href="signupPhotographer.jsp">Register here</a></p>
     <br>
     
     <% if (request.getAttribute("errorMessage") != null) { %>

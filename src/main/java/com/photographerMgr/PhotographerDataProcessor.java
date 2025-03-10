@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 public class PhotographerDataProcessor {
-    private static final String FILE_PATH = "C:\\Users\\savir\\Documents\\Java projects\\photoWeb\\src\\main\\webapp\\WEB-INF\\users.txt";
+    private static final String FILE_PATH = "C:\\Users\\savir\\Documents\\Java projects\\photoWeb\\src\\main\\webapp\\WEB-INF\\photographers.txt";
     
     /**
      * Authenticates a user using bubble search algorithm on a queue of users
@@ -31,7 +31,7 @@ public class PhotographerDataProcessor {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(", ");
-                if (parts.length >= 6) {
+                if (parts.length >= 8) {
                     String username = parts[0];
                     String pwd = parts[1];
                     String email = parts[2];
@@ -39,8 +39,9 @@ public class PhotographerDataProcessor {
                     String address = parts[4];
                     String phone = parts[5];
                     String skills = parts[6];
+                    String prices = parts[7];
                     
-                    Photographer user = new Photographer(username, pwd, email, gender, address, phone, skills);
+                    Photographer user = new Photographer(username, pwd, email, gender, address, phone, skills, prices);
                     queue.add(user);
                 }
             }

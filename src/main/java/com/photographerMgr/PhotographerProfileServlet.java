@@ -12,10 +12,10 @@ public class PhotographerProfileServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Photographer currentUser = (Photographer) session.getAttribute("photographer");
+        Photographer currentUser = (Photographer) session.getAttribute("user");
         
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("loginPhotographer.jsp");
             return;
         }
         
@@ -30,6 +30,7 @@ public class PhotographerProfileServlet extends HttpServlet {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String skills = request.getParameter("skills");
+        String prices = request.getParameter("prices");
         
         // Create a UserValidator to check for duplicates
         PhotographerValidator validator = new PhotographerValidator();
@@ -38,7 +39,7 @@ public class PhotographerProfileServlet extends HttpServlet {
         if (!username.equals(originalUsername)) {
             if (validator.isDuplicateUsername(username)) {
                 request.setAttribute("error", "Username already exists! Please choose a different username.");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
+                request.getRequestDispatcher("profilePhotographer.jsp").forward(request, response);
                 return;
             }
         }
@@ -47,7 +48,7 @@ public class PhotographerProfileServlet extends HttpServlet {
         if (!email.equals(originalEmail)) {
             if (validator.isDuplicateEmail(email)) {
                 request.setAttribute("error", "Email already exists! Please use a different email address.");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
+                request.getRequestDispatcher("profilePhotographer.jsp").forward(request, response);
                 return;
             }
         }
@@ -56,24 +57,24 @@ public class PhotographerProfileServlet extends HttpServlet {
         if (!phone.equals(originalPhone)) {
             if (validator.isDuplicatePhone(phone)) {
                 request.setAttribute("error", "Phone number already exists! Please use a different phone number.");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
+                request.getRequestDispatcher("profilePhotographer.jsp").forward(request, response);
                 return;
             }
         }
         
-        Photographer updatedPG = new Photographer(username, password, email, gender, address, phone, skills);
+        Photographer updatedUser = new Photographer(username, password, email, gender, address, phone, skills, prices);
         
         PhotographerProfileManager profileManager = new PhotographerProfileManager();
-        boolean success = profileManager.updateUserProfile(originalUsername, originalEmail, updatedPG);
+        boolean success = profileManager.updateUserProfile(originalUsername, originalEmail, updatedUser);
         
         if (success) {
             // Update the session with the new user data
-            session.setAttribute("photographer", updatedPG);
+            session.setAttribute("user", updatedUser);
             request.setAttribute("message", "Profile updated successfully!");
         } else {
             request.setAttribute("error", "Failed to update profile. Please try again.");
         }
         
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        request.getRequestDispatcher("profilePhotographer.jsp").forward(request, response);
     }
 }

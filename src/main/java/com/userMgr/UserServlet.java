@@ -57,7 +57,7 @@ public class UserServlet extends HttpServlet {
         } catch (Exception e) {
             // Forward to error page with error message
             request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("signup.jsp").forward(request, response);
         }
     }
 }

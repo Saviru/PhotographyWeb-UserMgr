@@ -49,6 +49,11 @@
         	<input type="text" id="skills" name="skills" required>
         	<label for="skills">Skills</label>
         </div>		
+        
+        <div class="inputs">
+        	<input type="text" id="prices" name="prices" required>
+        	<label for="prices">Prices and Packages</label>
+        </div>	
 
         
         <div class="inpBtn">

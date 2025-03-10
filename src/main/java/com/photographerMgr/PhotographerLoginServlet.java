@@ -11,19 +11,19 @@ public class PhotographerLoginServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String pgIdentifier = request.getParameter("pgIdentifier");
+        String userIdentifier = request.getParameter("userIdentifier");
         String password = request.getParameter("password");
         
         PhotographerDataProcessor processor = new PhotographerDataProcessor();
-        Photographer photographer = processor.authenticateUser(pgIdentifier, password);
+        Photographer user = processor.authenticateUser(userIdentifier, password);
         
-        if (photographer != null) {
+        if (user != null) {
             // Successful login
             HttpSession session = request.getSession();
-            session.setAttribute("user", photographer);
+            session.setAttribute("user", user);
             session.setAttribute("loginTime", new java.util.Date());
             
-            response.sendRedirect("dashboard.jsp");
+            response.sendRedirect("dashboardPhotographer.jsp");
         } else {
             // Failed login
             request.setAttribute("error", "Invalid username/email or password");

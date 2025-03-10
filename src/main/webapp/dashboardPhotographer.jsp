@@ -13,7 +13,7 @@
 <body>
     <h2>Welcome to your Dashboard</h2>
     
-    <% Photographer photographer = (Photographer)session.getAttribute("photographer"); %>
+    <% Photographer photographer = (Photographer)session.getAttribute("user"); %>
     <% if (photographer != null) { %>
         <h3>photographer Information</h3>
         <p>Username: <%= photographer.getUsername() %></p>
@@ -21,10 +21,11 @@
         <p>Gender: <%= photographer.getGender() %></p>
         <p>Address: <%= photographer.getOriginalAddress() %></p>
         <p>Phone: <%= photographer.getPhone() %></p>
-        
+        <p>Skills: <%= photographer.getOriginalSkills() %></p>
+        <br>
         <p>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-05 17:38:21</p>
         <p>Current photographer's Login: Saviru</p>
-        
+        <br>
         <% 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date loginTime = (java.util.Date)session.getAttribute("loginTime");

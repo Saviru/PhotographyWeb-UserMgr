@@ -1,71 +1,73 @@
 package com.photographerMgr;
 
 public class Photographer {
-    private String pgUsername;
-    private String pgPassword;
-    private String pgEmail;
-    private String pgGender;
-    private String pgAddress;
-    private String pgPhone;
+    private String username;
+    private String password;
+    private String email;
+    private String gender;
+    private String address;
+    private String phone;
     private String skills;
+    private String prices;
 
-    public Photographer(String pgUsername, String pgPassword, String pgEmail, String pgGender, String pgAddress, String pgPhone, String skills) {
-        this.pgUsername = pgUsername;
-        this.pgPassword = pgPassword;
-        this.pgEmail = pgEmail;
-        this.pgGender = pgGender;
-        setAddress(pgAddress); // Using setter to validate/transform address
-        this.pgPhone = pgPhone;
-        this.skills = skills;
+    public Photographer(String username, String password, String email, String gender, String address, String phone, String skills, String prices) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.gender = gender;
+        setAddress(address); // Using setter to validate/transform address
+        this.phone = phone;
+        setSkills(skills);
+        setPrices(prices);
     }
     
     // Getters and setters
     public String getUsername() {
-        return pgUsername;
+        return username;
     }
 
-    public void setUsername(String pgUsername) {
-        this.pgUsername = pgUsername;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
-        return pgPassword;
+        return password;
     }
 
-    public void setPassword(String pgPassword) {
-        this.pgPassword = pgPassword;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
-        return pgEmail;
+        return email;
     }
 
-    public void setEmail(String pgEmail) {
-        this.pgEmail = pgEmail;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getGender() {
-        return pgGender;
+        return gender;
     }
 
-    public void setGender(String pgGender) {
-        this.pgGender = pgGender;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getAddress() {
-        return pgAddress;
+        return address;
     }
 
     /**
      * Sets the address after validating and replacing commas with @;%
      * @param address the address to set
      */
-    public void setAddress(String pgAddress) {
-        if (pgAddress != null) {
+    public void setAddress(String address) {
+        if (address != null) {
             // Replace all commas with "@;%"
-            this.pgAddress = pgAddress.replace(",", "@;%");
+            this.address = address.replace(",", "@;%");
         } else {
-            this.pgAddress = "";
+            this.address = "";
         }
     }
     
@@ -74,42 +76,62 @@ public class Photographer {
      * @return address with original commas
      */
     public String getOriginalAddress() {
-        if (pgAddress != null) {
-            return pgAddress.replace("@;%", ",");
+        if (address != null) {
+            return address.replace("@;%", ",");
         }
         return "";
     }
 
     public String getPhone() {
-        return pgPhone;
+        return phone;
     }
 
-    public void setPhone(String pgPhone) {
-        this.pgPhone = pgPhone;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
-    
-    public String getSkills() {
-		return skills;
-	}
-    
-    public String getOriginalSkills() {
-		if (skills != null) {
-			return skills.replace("@;%", ",");
-		}
-		return "";
-	}
     
     public void setSkills(String skills) {
     	if (skills != null) {
-    		this.skills = skills.replace(",", "@;%");
-    	} else {
-			this.skills = "";
-		}
-    	
+            // Replace all commas with "@;%"
+            this.skills = skills.replace(",", "@;%");
+        } else {
+            this.skills = "";
+        }
+    }
+    
+    public String getSkills() {
+    	return skills;
+    }
+    
+    public String getOriginalSkills() {
+        if (skills != null) {
+            return skills.replace("@;%", ",");
+        }
+        return "";
+    }
+    
+    public String getPrices(String prices) {
+    	return prices;
+    }
+    
+    public void setPrices(String prices) {
+    	if (prices != null) {
+            // Replace all commas with "@;%"
+            this.prices = prices.replace(",", "@;%");
+        } else {
+            this.prices = "";
+        }
+    }
+    
+    public String getOriginalPrices() {
+        if (prices != null) {
+            return prices.replace("@;%", ",");
+        }
+        return "";
     }
 
     @Override
     public String toString() {
-        return pgUsername + ", " + pgPassword + ", " + pgEmail + ", " + pgGender + ", " + pgAddress + ", " + pgPhone;
+        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone + ", " + skills;
     }
 }

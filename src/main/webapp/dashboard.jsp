@@ -19,10 +19,10 @@
         <p>Gender: <%= user.getGender() %></p>
         <p>Address: <%= user.getOriginalAddress() %></p>
         <p>Phone: <%= user.getPhone() %></p>
-        
+        <br>
         <p>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-05 17:38:21</p>
         <p>Current User's Login: Saviru</p>
-        
+        <br>
         <% 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         java.util.Date loginTime = (java.util.Date)session.getAttribute("loginTime");
