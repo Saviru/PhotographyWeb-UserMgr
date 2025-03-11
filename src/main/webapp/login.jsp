@@ -14,11 +14,11 @@
     <form action="LoginServlet" method="post">
         <div class="inputs">
         	<input type="text" id="userIdentifier" name="userIdentifier" required>
-        	<label for="userIdentifier">Username or Email:</label>
+        	<label for="userIdentifier">Username or Email</label>
         </div>
         <div class="inputs">
         	<input type="password" id="password" name="password" required>
-        	<label for="password">Password:</label>
+        	<label for="password">Password</label>
         </div>
         
         <div class="inpBtn">

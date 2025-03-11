@@ -7,6 +7,15 @@ public class User {
     private String gender;
     private String address;
     private String phone;
+    
+    public User() {
+		this.username = "Null";
+		this.password = "Null";
+		this.email = "Null";
+		this.gender = "Hidden";
+		this.address = "Null";
+		this.phone = "Null";
+    }
 
     public User(String username, String password, String email, String gender, String address, String phone) {
         this.username = username;

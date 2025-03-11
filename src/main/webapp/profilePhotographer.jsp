@@ -56,8 +56,12 @@
                 </div>
                 
                 <div class="form-group inpBtn btns">
-                    <a class="refBtn" href="dashboard.jsp" style="margin-left: 10px;">Back to Dashboard</a>
+                    <a href="deleteConfirm.jsp" class="refBtn">Delete Profile</a>
                     <input type="submit" value="Update Profile" class="button">
+                </div>
+                
+                <div class="inpBtn">
+                    <a class="refLink" href="dashboard.jsp" style="margin-left: 10px;">Back to Dashboard</a>
                 </div>
             </form>
             

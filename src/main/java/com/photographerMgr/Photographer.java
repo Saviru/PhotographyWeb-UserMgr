@@ -9,6 +9,17 @@ public class Photographer {
     private String phone;
     private String skills;
     private String prices;
+    
+    public Photographer() {
+    	this.username = "Null";
+		this.password = "Null";
+		this.email = "Null";
+		this.gender = "Hidden";
+		this.address = "Null";
+		this.phone = "Null";
+		this.skills = "Null";
+		this.prices = "Null";
+    }
 
     public Photographer(String username, String password, String email, String gender, String address, String phone, String skills, String prices) {
         this.username = username;

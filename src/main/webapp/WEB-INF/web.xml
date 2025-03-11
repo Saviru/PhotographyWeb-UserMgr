@@ -4,6 +4,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
     id="WebApp_ID" version="4.0">
     
+    <!-- User Management-->
     <servlet>
         <servlet-name>UserServlet</servlet-name>
         <servlet-class>com.userMgr.UserServlet</servlet-class>
@@ -32,6 +33,18 @@
     </servlet-mapping>
     
     <servlet>
+    	<servlet-name>DeleteServlet</servlet-name>
+    	<servlet-class>com.userMgr.DeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>DeleteServlet</servlet-name>
+    	<url-pattern>/DeleteServlet</url-pattern>	
+    </servlet-mapping>
+    
+    
+    
+    <!-- Photographer Management-->
+    <servlet>
         <servlet-name>PhotographerServlet</servlet-name>
         <servlet-class>com.photographerMgr.PhotographerServlet</servlet-class>
     </servlet>
@@ -57,6 +70,17 @@
         <servlet-name>PhotographerProfileServlet</servlet-name>
         <url-pattern>/PhotographerProfileServlet</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>PhotographerDeleteServlet</servlet-name>
+    	<servlet-class>com.photographerMgr.PhotographerDeleteServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>PhotographerDeleteServlet</servlet-name>
+    	<url-pattern>/PhotographerDeleteServlet</url-pattern>
+    </servlet-mapping>
+    
+    
     
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>

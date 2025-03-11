@@ -21,7 +21,7 @@
 	 <br>
 	 <h4>For photographers</h4>
 	 <br>
-	 <a class="refLink" href="signupPhotographer.jsp">Sign Up as a Photographer</a>
+	 <a class="refLink" href="signupPhotographer.jsp">Register as a Photographer</a>
 	 <br>
 	 <a class="refLink" href="loginPhotographer.jsp">Login as a Photographer</a>
 	 <br>

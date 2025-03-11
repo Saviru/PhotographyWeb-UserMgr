@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>Welcome to your Dashboard</h2>
+    <h2>Welcome to your Dashboard</h2><br><br>
     
     <% User user = (User)session.getAttribute("user"); %>
     <% if (user != null) { %>
         <h3>User Information</h3>
+        <br>
         <p>Username: <%= user.getUsername() %></p>
         <p>Email: <%= user.getEmail() %></p>
         <p>Gender: <%= user.getGender() %></p>
@@ -29,9 +30,9 @@
         %>
         <p>Login Time: <%= sdf.format(loginTime) %></p>
         
-        <div style="margin-top: 20px;">
-            <a href="profile.jsp" class="button">Profile</a>
-            <a href="logout.jsp" class="button">Logout</a>
+        <div class="inpBtn btns" style="margin-top: 20px;">
+            <input type="button" value="Update Profile" onclick="window.location.href='profile.jsp'" class="button">
+            <input type="button" value="Logout" onclick="window.location.href='logout.jsp'" class="refBtn">
         </div>
     <% } else { %>
         <p>No user found in session. Please <a href="login.jsp">login</a>.</p>
