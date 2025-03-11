@@ -24,7 +24,7 @@ public class DeleteServlet extends HttpServlet {
         // Validate that the username from the form matches the logged-in user
         if (!currentUser.getUsername().equals(username)) {
             request.setAttribute("errorMessage", "Invalid user verification");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("deleteConfirm.jsp").forward(request, response);
             return;
         }
         
@@ -39,7 +39,7 @@ public class DeleteServlet extends HttpServlet {
         } else {
             // Redirect to error page
             request.setAttribute("errorMessage", "Failed to delete user profile");
-            request.getRequestDispatcher("error.jsp").forward(request, response);
+            request.getRequestDispatcher("deleteConfirm.jsp").forward(request, response);
         }
     }
 }

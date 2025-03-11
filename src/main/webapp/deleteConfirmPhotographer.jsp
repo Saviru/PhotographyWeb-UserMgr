@@ -11,7 +11,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>Confirm Profile Deletion</h2>
+        <h2>Confirm Profile Deletion</h2><br>
         
         <% Photographer photographer = (Photographer)session.getAttribute("user"); %>
         <% if (photographer != null) { %>

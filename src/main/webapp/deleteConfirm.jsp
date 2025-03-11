@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="form-container">
+    <div class="container">
         <h2>Confirm Profile Deletion</h2><br>
         
         <% User user = (User)session.getAttribute("user"); %>

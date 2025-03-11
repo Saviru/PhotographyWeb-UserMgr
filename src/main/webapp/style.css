@@ -124,3 +124,11 @@ body {
 .refLink {
 	color: #B9B4C7;
 }
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #FAF0E6;
+}
