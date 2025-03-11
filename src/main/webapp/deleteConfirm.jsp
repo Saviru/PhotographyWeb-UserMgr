@@ -11,12 +11,13 @@
 </head>
 <body>
     <div class="form-container">
-        <h2>Confirm Profile Deletion</h2>
+        <h2>Confirm Profile Deletion</h2><br>
         
         <% User user = (User)session.getAttribute("user"); %>
         <% if (user != null) { %>
             <p>You are about to delete your profile: <strong><%= user.getUsername() %></strong></p>
-            <p class="warning">This action cannot be undone. All your data will be permanently removed.</p>
+      
+            <p style="color:red;">This action cannot be undone. All your data will be permanently removed.</p>
             
             <div class="inpBtn btns">
                 <form action="DeleteServlet" method="post">

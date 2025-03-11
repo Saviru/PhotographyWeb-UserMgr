@@ -16,7 +16,7 @@
         <% Photographer photographer = (Photographer)session.getAttribute("user"); %>
         <% if (photographer != null) { %>
             <p>You are about to delete your profile: <strong><%= photographer.getUsername() %></strong></p>
-            <p class="warning">This action cannot be undone. All your data will be permanently removed.</p>
+            <p style="color:red;">This action cannot be undone. All your data will be permanently removed.</p>
             
             <div class="button-group">
                 <form action="DeleteServlet" method="post">
