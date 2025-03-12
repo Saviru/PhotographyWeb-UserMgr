@@ -19,30 +19,30 @@ public class PhotographerProfileManager {
      * @param updatedUser the updated user information
      * @return true if update was successful, false otherwise
      */
-    public boolean updateUserProfile(String originalUsername, String originalEmail, Photographer updatedUser) {
-        Queue<String> userRecords = loadUsersIntoQueue();
-        boolean userFound = false;
+    public boolean updatePhotographerProfile(String originalUsername, String originalEmail, Photographer updatedUser) {
+        Queue<String> photographerRecords = loadPhotographersIntoQueue();
+        boolean photographerFound = false;
         
         try {
             // Convert queue to array for bubble search
-            String[] userArray = userRecords.toArray(new String[0]);
-            int userIndex = bubbleSearchUserIndex(userArray, originalUsername, originalEmail);
+            String[] photographerArray = photographerRecords.toArray(new String[0]);
+            int photographerIndex = bubbleSearchPhotographerIndex(photographerArray, originalUsername, originalEmail);
             
-            if (userIndex != -1) {
+            if (photographerIndex != -1) {
                 // User found, update the record
-                userArray[userIndex] = updatedUser.toString();
-                userFound = true;
+                photographerArray[photographerIndex] = updatedUser.toString();
+                photographerFound = true;
                 
                 // Write the updated records back to the file
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-                    for (String record : userArray) {
+                    for (String record : photographerArray) {
                         writer.write(record);
                         writer.newLine();
                     }
                 }
             }
             
-            return userFound;
+            return photographerFound;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -54,7 +54,7 @@ public class PhotographerProfileManager {
      * 
      * @return Queue of user records as strings
      */
-    private Queue<String> loadUsersIntoQueue() {
+    private Queue<String> loadPhotographersIntoQueue() {
         Queue<String> queue = new LinkedList<>();
         
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -77,7 +77,7 @@ public class PhotographerProfileManager {
      * @param email the email to search for (as backup)
      * @return the index of the user in the array, or -1 if not found
      */
-    private int bubbleSearchUserIndex(String[] userArray, String username, String email) {
+    private int bubbleSearchPhotographerIndex(String[] userArray, String username, String email) {
         for (int i = 0; i < userArray.length - 1; i++) {
             for (int j = 0; j < userArray.length - i - 1; j++) {
                 // Check if current record matches
