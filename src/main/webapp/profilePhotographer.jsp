@@ -61,7 +61,7 @@
                 </div>
                 
                 <div class="inpBtn">
-                    <a class="refLink" href="dashboard.jsp" style="margin-left: 10px;">Back to Dashboard</a>
+                    <a class="refLink" href="dashboardPhotographer.jsp" style="margin-left: 10px;">Back to Dashboard</a>
                 </div>
             </form>
             

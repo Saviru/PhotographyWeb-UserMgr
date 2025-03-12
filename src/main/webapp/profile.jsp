@@ -20,32 +20,32 @@
                 
                 <div class="form-group inputs">
                     <input type="text" id="username" name="username" value="<%= user.getUsername() %>" required>
-                    <label for="username">Username:</label>
+                    <label for="username">Username</label>
                 </div>
                 
                 <div class="form-group inputs">
                     <input type="password" id="password" name="password" value="<%= user.getPassword() %>" required>
-                    <label for="password">Password:</label>
+                    <label for="password">Password</label>
                 </div>
 
                 <div class="form-group inputs">
                     <input type="email" id="email" name="email" value="<%= user.getEmail() %>" required>
-                    <label for="email">Email:</label>
+                    <label for="email">Email</label>
                 </div>
                 
                 <div class="form-group inputs">
                     <input type="text" id="gender" name="gender" value="<%= user.getGender() %>" required>
-                    <label for="gender">Gender:</label>
+                    <label for="gender">Gender</label>
                 </div>
                 
                 <div class="form-group inputs">
                     <input type="text" id="address" name="address" value="<%= user.getOriginalAddress() %>" required>
-                    <label for="address">Address:</label>
+                    <label for="address">Address</label>
                 </div>
                 
                 <div class="form-group inputs">
                     <input type="text" id="phone" name="phone" value="<%= user.getPhone() %>" required>
-                    <label for="phone">Phone Number:</label>
+                    <label for="phone">Phone Number</label>
                 </div>
                 
                 <div class="inpBtn btns">
