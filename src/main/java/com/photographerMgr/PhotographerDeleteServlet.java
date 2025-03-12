@@ -30,7 +30,7 @@ public class PhotographerDeleteServlet extends HttpServlet {
         
         // Delete the user profile
         PhotographerDeletionManager deletionManager = new PhotographerDeletionManager();
-        boolean success = deletionManager.deleteUserProfile(username);
+        boolean success = deletionManager.deletePhotographerProfile(username);
         
         if (success) {
             // Invalidate session and redirect to a confirmation page
