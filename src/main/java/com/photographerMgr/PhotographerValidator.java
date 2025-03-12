@@ -51,17 +51,17 @@ public class PhotographerValidator {
             return false;
         }
         
-        Queue<String> userQueue = loadUsersIntoQueue();
+        Queue<String> photographerQueue = loadUsersIntoQueue();
         
-        if (userQueue.isEmpty()) {
+        if (photographerQueue.isEmpty()) {
             return false;
         }
         
         // Convert queue to array for bubble search
-        String[] userArray = userQueue.toArray(new String[0]);
+        String[] photographerArray = photographerQueue.toArray(new String[0]);
         
         // Perform bubble search for duplicate value
-        return bubbleSearchForDuplicate(userArray, value, fieldIndex);
+        return bubbleSearchForDuplicate(photographerArray, value, fieldIndex);
     }
     
     /**

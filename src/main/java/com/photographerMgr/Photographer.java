@@ -143,6 +143,6 @@ public class Photographer {
 
     @Override
     public String toString() {
-        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone + ", " + skills;
+        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone + ", " + skills+", "+prices;
     }
 }

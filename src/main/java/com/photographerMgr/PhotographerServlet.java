@@ -48,10 +48,10 @@ public class PhotographerServlet extends HttpServlet {
             }
             
             // All validations passed, create user
-            Photographer user = new Photographer(username, password, email, gender, address, phone, skills, prices);
+            Photographer photographer = new Photographer(username, password, email, gender, address, phone, skills, prices);
             
             try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
-                writer.write(user.toString() + System.lineSeparator());
+                writer.write(photographer.toString() + System.lineSeparator());
             }
             
             // Redirect to success page

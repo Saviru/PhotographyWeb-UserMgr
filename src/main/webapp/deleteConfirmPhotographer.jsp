@@ -13,7 +13,7 @@
     <div class="container">
         <h2>Confirm Profile Deletion</h2><br>
         
-        <% Photographer photographer = (Photographer)session.getAttribute("user"); %>
+        <% Photographer photographer = (Photographer)session.getAttribute("photographer"); %>
         <% if (photographer != null) { %>
             <p>You are about to delete your profile: <strong><%= photographer.getUsername() %></strong></p>
             <p style="color:red;">This action cannot be undone. All your data will be permanently removed.</p>
