@@ -12,16 +12,16 @@ public class PhotographerProfileServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Photographer currentUser = (Photographer) session.getAttribute("user");
+        Photographer currentPhotographer = (Photographer) session.getAttribute("photographer");
         
-        if (currentUser == null) {
+        if (currentPhotographer == null) {
             response.sendRedirect("loginPhotographer.jsp");
             return;
         }
         
         String originalUsername = request.getParameter("originalUsername");
         String originalEmail = request.getParameter("originalEmail");
-        String originalPhone = currentUser.getPhone();
+        String originalPhone = currentPhotographer.getPhone();
         
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -62,14 +62,14 @@ public class PhotographerProfileServlet extends HttpServlet {
             }
         }
         
-        Photographer updatedUser = new Photographer(username, password, email, gender, address, phone, skills, prices);
+        Photographer updatedPhotographer = new Photographer(username, password, email, gender, address, phone, skills, prices);
         
         PhotographerProfileManager profileManager = new PhotographerProfileManager();
-        boolean success = profileManager.updateUserProfile(originalUsername, originalEmail, updatedUser);
+        boolean success = profileManager.updatePhotographerProfile(originalUsername, originalEmail, updatedPhotographer);
         
         if (success) {
             // Update the session with the new user data
-            session.setAttribute("user", updatedUser);
+            session.setAttribute("photographer", updatedPhotographer);
             request.setAttribute("message", "Profile updated successfully!");
         } else {
             request.setAttribute("error", "Failed to update profile. Please try again.");
