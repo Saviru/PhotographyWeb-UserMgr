@@ -15,12 +15,12 @@ public class PhotographerLoginServlet extends HttpServlet {
         String password = request.getParameter("password");
         
         PhotographerDataProcessor processor = new PhotographerDataProcessor();
-        Photographer user = processor.authenticateUser(userIdentifier, password);
+        Photographer photographer = processor.authenticateUser(userIdentifier, password);
         
-        if (user != null) {
+        if (photographer != null) {
             // Successful login
             HttpSession session = request.getSession();
-            session.setAttribute("user", user);
+            session.setAttribute("photographer", photographer);
             session.setAttribute("loginTime", new java.util.Date());
             
             response.sendRedirect("dashboardPhotographer.jsp");

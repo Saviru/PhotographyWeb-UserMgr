@@ -16,8 +16,8 @@ public class PhotographerDataProcessor {
      * @return User object if authenticated, null otherwise
      */
     public Photographer authenticateUser(String userIdentifier, String password) {
-        Queue<Photographer> userQueue = loadUsersIntoQueue();
-        return bubbleSearchUser(userQueue, userIdentifier, password);
+        Queue<Photographer> photographerQueue = loadUsersIntoQueue();
+        return bubbleSearchUser(photographerQueue, userIdentifier, password);
     }
     
     /**
@@ -41,8 +41,8 @@ public class PhotographerDataProcessor {
                     String skills = parts[6];
                     String prices = parts[7];
                     
-                    Photographer user = new Photographer(username, pwd, email, gender, address, phone, skills, prices);
-                    queue.add(user);
+                    Photographer photographer = new Photographer(username, pwd, email, gender, address, phone, skills, prices);
+                    queue.add(photographer);
                 }
             }
         } catch (IOException e) {
@@ -62,24 +62,24 @@ public class PhotographerDataProcessor {
      */
     private Photographer bubbleSearchUser(Queue<Photographer> userQueue, String userIdentifier, String password) {
         int size = userQueue.size();
-        Photographer[] users = new Photographer[size];
+        Photographer[] photographers = new Photographer[size];
         
         // Convert queue to array for bubble search
         for (int i = 0; i < size; i++) {
-            users[i] = userQueue.remove();
+            photographers[i] = userQueue.remove();
         }
         
         // Bubble search algorithm
         for (int i = 0; i < size - 1; i++) {
             for (int j = 0; j < size - i - 1; j++) {
                 // Check current position
-                if (isMatchingUser(users[j], userIdentifier, password)) {
-                    return users[j];
+                if (isMatchingUser(photographers[j], userIdentifier, password)) {
+                    return photographers[j];
                 }
                 
                 // Check next position
-                if (isMatchingUser(users[j+1], userIdentifier, password)) {
-                    return users[j+1];
+                if (isMatchingUser(photographers[j+1], userIdentifier, password)) {
+                    return photographers[j+1];
                 }
             }
         }

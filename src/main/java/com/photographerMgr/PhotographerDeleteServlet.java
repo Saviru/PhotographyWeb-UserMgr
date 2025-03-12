@@ -12,17 +12,17 @@ public class PhotographerDeleteServlet extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        Photographer currentUser = (Photographer) session.getAttribute("user");
+        Photographer currentPhotographer = (Photographer) session.getAttribute("photographer");
         
-        if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+        if (currentPhotographer == null) {
+            response.sendRedirect("loginPhotographer.jsp");
             return;
         }
         
         String username = request.getParameter("username");
         
         // Validate that the username from the form matches the logged-in user
-        if (!currentUser.getUsername().equals(username)) {
+        if (!currentPhotographer.getUsername().equals(username)) {
             request.setAttribute("errorMessage", "Invalid user verification");
             request.getRequestDispatcher("deleteConfirmPhotographer.jsp").forward(request, response);
             return;

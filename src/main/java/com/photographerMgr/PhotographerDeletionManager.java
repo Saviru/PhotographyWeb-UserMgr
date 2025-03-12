@@ -18,42 +18,42 @@ public class PhotographerDeletionManager {
      * @return true if deletion was successful, false otherwise
      */
     public boolean deleteUserProfile(String username) {
-        Queue<String> userQueue = loadUsersIntoQueue();
-        boolean userFound = false;
+        Queue<String> photographerQueue = loadPhotographerIntoQueue();
+        boolean photographerFound = false;
         
         try {
             // Convert queue to array for bubble search
-            String[] userArray = userQueue.toArray(new String[0]);
+            String[] photographerArray = photographerQueue.toArray(new String[0]);
             
             // Find the user index using bubble search
-            int userIndex = bubbleSearchUserIndex(userArray, username);
+            int photographerIndex = bubbleSearchPhotographerIndex(photographerArray, username);
             
-            if (userIndex != -1) {
+            if (photographerIndex != -1) {
                 // Remove the user by rebuilding the array
-                String[] newUserArray = new String[userArray.length - 1];
+                String[] newPhotographerArray = new String[photographerArray.length - 1];
                 
                 // Copy elements before the index
-                for (int i = 0; i < userIndex; i++) {
-                    newUserArray[i] = userArray[i];
+                for (int i = 0; i < photographerIndex; i++) {
+                    newPhotographerArray[i] = photographerArray[i];
                 }
                 
                 // Copy elements after the index
-                for (int i = userIndex + 1; i < userArray.length; i++) {
-                    newUserArray[i - 1] = userArray[i];
+                for (int i = photographerIndex + 1; i < photographerArray.length; i++) {
+                    newPhotographerArray[i - 1] = photographerArray[i];
                 }
                 
                 // Write the updated records back to the file
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
-                    for (String record : newUserArray) {
+                    for (String record : newPhotographerArray) {
                         writer.write(record);
                         writer.newLine();
                     }
                 }
                 
-                userFound = true;
+                photographerFound = true;
             }
             
-            return userFound;
+            return photographerFound;
         } catch (IOException e) {
             e.printStackTrace();
             return false;
@@ -65,7 +65,7 @@ public class PhotographerDeletionManager {
      * 
      * @return Queue of user records as strings
      */
-    private Queue<String> loadUsersIntoQueue() {
+    private Queue<String> loadPhotographerIntoQueue() {
         Queue<String> queue = new LinkedList<>();
         
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
@@ -87,21 +87,21 @@ public class PhotographerDeletionManager {
      * @param username the username to search for
      * @return the index of the user in the array, or -1 if not found
      */
-    private int bubbleSearchUserIndex(String[] userArray, String username) {
+    private int bubbleSearchPhotographerIndex(String[] userArray, String username) {
         for (int i = 0; i < userArray.length - 1; i++) {
             for (int j = 0; j < userArray.length - i - 1; j++) {
                 // Check if current record matches
-                if (isUserRecord(userArray[j], username)) {
+                if (isPhotographerRecord(userArray[j], username)) {
                     return j;
                 }
                 
                 // Check if next record matches
-                if (isUserRecord(userArray[j + 1], username)) {
+                if (isPhotographerRecord(userArray[j + 1], username)) {
                     return j + 1;
                 }
                 
                 // Bubble sort swap if needed (optional - not relevant for search)
-                if (compareUserRecords(userArray[j], userArray[j + 1]) > 0) {
+                if (comparePhotographerRecords(userArray[j], userArray[j + 1]) > 0) {
                     String temp = userArray[j];
                     userArray[j] = userArray[j + 1];
                     userArray[j + 1] = temp;
@@ -110,7 +110,7 @@ public class PhotographerDeletionManager {
         }
         
         // Check last element for single element array
-        if (userArray.length > 0 && isUserRecord(userArray[userArray.length - 1], username)) {
+        if (userArray.length > 0 && isPhotographerRecord(userArray[userArray.length - 1], username)) {
             return userArray.length - 1;
         }
         
@@ -124,7 +124,7 @@ public class PhotographerDeletionManager {
      * @param username the username to match
      * @return true if the record matches the username, false otherwise
      */
-    private boolean isUserRecord(String record, String username) {
+    private boolean isPhotographerRecord(String record, String username) {
         String[] parts = record.split(", ");
         return parts.length > 0 && parts[0].equals(username);
     }
@@ -136,7 +136,7 @@ public class PhotographerDeletionManager {
      * @param record2 second user record
      * @return negative if record1 < record2, positive if record1 > record2, 0 if equal
      */
-    private int compareUserRecords(String record1, String record2) {
+    private int comparePhotographerRecords(String record1, String record2) {
         String[] fields1 = record1.split(", ");
         String[] fields2 = record2.split(", ");
         
