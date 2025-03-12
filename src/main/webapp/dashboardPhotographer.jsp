@@ -13,7 +13,7 @@
 <body>
     <h2>Welcome to your Dashboard</h2>
     
-    <% Photographer photographer = (Photographer)session.getAttribute("user"); %>
+    <% Photographer photographer = (Photographer)session.getAttribute("photographer"); %>
     <% if (photographer != null) { %>
         <h3>photographer Information</h3>
         <p>Username: <%= photographer.getUsername() %></p>
