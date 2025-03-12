@@ -81,17 +81,17 @@ public class PhotographerProfileManager {
         for (int i = 0; i < userArray.length - 1; i++) {
             for (int j = 0; j < userArray.length - i - 1; j++) {
                 // Check if current record matches
-                if (isUserRecord(userArray[j], username, email)) {
+                if (isPhotographerRecord(userArray[j], username, email)) {
                     return j;
                 }
                 
                 // Check if next record matches
-                if (isUserRecord(userArray[j + 1], username, email)) {
+                if (isPhotographerRecord(userArray[j + 1], username, email)) {
                     return j + 1;
                 }
                 
                 // Bubble sort swap if needed (optional - not relevant for search)
-                if (compareUserRecords(userArray[j], userArray[j + 1]) > 0) {
+                if (comparePhotographerRecords(userArray[j], userArray[j + 1]) > 0) {
                     String temp = userArray[j];
                     userArray[j] = userArray[j + 1];
                     userArray[j + 1] = temp;
@@ -100,7 +100,7 @@ public class PhotographerProfileManager {
         }
         
         // Special case: check the last element if only one element in array
-        if (userArray.length > 0 && isUserRecord(userArray[userArray.length - 1], username, email)) {
+        if (userArray.length > 0 && isPhotographerRecord(userArray[userArray.length - 1], username, email)) {
             return userArray.length - 1;
         }
         
@@ -115,7 +115,7 @@ public class PhotographerProfileManager {
      * @param email the email to match
      * @return true if the record matches the username or email, false otherwise
      */
-    private boolean isUserRecord(String record, String username, String email) {
+    private boolean isPhotographerRecord(String record, String username, String email) {
         String[] parts = record.split(", ");
         if (parts.length >= 3) {
             String recordUsername = parts[0];
@@ -133,7 +133,7 @@ public class PhotographerProfileManager {
      * @param record2 second user record
      * @return negative if record1 < record2, positive if record1 > record2, 0 if equal
      */
-    private int compareUserRecords(String record1, String record2) {
+    private int comparePhotographerRecords(String record1, String record2) {
         String[] fields1 = record1.split(", ");
         String[] fields2 = record2.split(", ");
         
