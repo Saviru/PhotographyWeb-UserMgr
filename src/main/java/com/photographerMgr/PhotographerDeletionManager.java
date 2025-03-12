@@ -17,7 +17,7 @@ public class PhotographerDeletionManager {
      * @param username the username of the user to delete
      * @return true if deletion was successful, false otherwise
      */
-    public boolean deleteUserProfile(String username) {
+    public boolean deletePhotographerProfile(String username) {
         Queue<String> photographerQueue = loadPhotographerIntoQueue();
         boolean photographerFound = false;
         
