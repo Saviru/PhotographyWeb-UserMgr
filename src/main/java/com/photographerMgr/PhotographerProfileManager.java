@@ -77,31 +77,31 @@ public class PhotographerProfileManager {
      * @param email the email to search for (as backup)
      * @return the index of the user in the array, or -1 if not found
      */
-    private int bubbleSearchPhotographerIndex(String[] userArray, String username, String email) {
-        for (int i = 0; i < userArray.length - 1; i++) {
-            for (int j = 0; j < userArray.length - i - 1; j++) {
+    private int bubbleSearchPhotographerIndex(String[] photographerArray, String username, String email) {
+        for (int i = 0; i < photographerArray.length - 1; i++) {
+            for (int j = 0; j < photographerArray.length - i - 1; j++) {
                 // Check if current record matches
-                if (isPhotographerRecord(userArray[j], username, email)) {
+                if (isPhotographerRecord(photographerArray[j], username, email)) {
                     return j;
                 }
                 
                 // Check if next record matches
-                if (isPhotographerRecord(userArray[j + 1], username, email)) {
+                if (isPhotographerRecord(photographerArray[j + 1], username, email)) {
                     return j + 1;
                 }
                 
                 // Bubble sort swap if needed (optional - not relevant for search)
-                if (comparePhotographerRecords(userArray[j], userArray[j + 1]) > 0) {
-                    String temp = userArray[j];
-                    userArray[j] = userArray[j + 1];
-                    userArray[j + 1] = temp;
+                if (comparePhotographerRecords(photographerArray[j], photographerArray[j + 1]) > 0) {
+                    String temp = photographerArray[j];
+                    photographerArray[j] = photographerArray[j + 1];
+                    photographerArray[j + 1] = temp;
                 }
             }
         }
         
         // Special case: check the last element if only one element in array
-        if (userArray.length > 0 && isPhotographerRecord(userArray[userArray.length - 1], username, email)) {
-            return userArray.length - 1;
+        if (photographerArray.length > 0 && isPhotographerRecord(photographerArray[photographerArray.length - 1], username, email)) {
+            return photographerArray.length - 1;
         }
         
         return -1; // User not found
