@@ -21,7 +21,7 @@ public class PhotographerServlet extends HttpServlet {
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
             String skills = request.getParameter("skills");
-            String prices = request.getParameter("prices");
+            String experience = request.getParameter("experience");
             
             // Create validator to check for duplicate values
             PhotographerValidator validator = new PhotographerValidator();
@@ -48,7 +48,7 @@ public class PhotographerServlet extends HttpServlet {
             }
             
             // All validations passed, create user
-            Photographer photographer = new Photographer(username, password, email, gender, address, phone, skills, prices);
+            Photographer photographer = new Photographer(username, password, email, gender, address, phone, skills, experience);
             
             try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
                 writer.write(photographer.toString() + System.lineSeparator());

@@ -8,7 +8,7 @@ public class Photographer {
     private String address;
     private String phone;
     private String skills;
-    private String prices;
+    private String experience;
     
     public Photographer() {
     	this.username = "Null";
@@ -18,10 +18,10 @@ public class Photographer {
 		this.address = "Null";
 		this.phone = "Null";
 		this.skills = "Null";
-		this.prices = "Null";
+		this.experience = "Null";
     }
 
-    public Photographer(String username, String password, String email, String gender, String address, String phone, String skills, String prices) {
+    public Photographer(String username, String password, String email, String gender, String address, String phone, String skills, String experience) {
         this.username = username;
         this.password = password;
         this.email = email;
@@ -29,7 +29,7 @@ public class Photographer {
         setAddress(address); // Using setter to validate/transform address
         this.phone = phone;
         setSkills(skills);
-        setPrices(prices);
+        this.experience = experience;
     }
     
     // Getters and setters
@@ -121,28 +121,17 @@ public class Photographer {
         return "";
     }
     
-    public String getPrices(String prices) {
-    	return prices;
+    public String getExperience(String experience) {
+    	return experience;
     }
     
-    public void setPrices(String prices) {
-    	if (prices != null) {
-            // Replace all commas with "@;%"
-            this.prices = prices.replace(",", "@;%");
-        } else {
-            this.prices = "";
-        }
+    public void setExperience(String experience) {
+    	this.experience = experience;
     }
-    
-    public String getOriginalPrices() {
-        if (prices != null) {
-            return prices.replace("@;%", ",");
-        }
-        return "";
-    }
+   
 
     @Override
     public String toString() {
-        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone + ", " + skills+", "+prices;
+        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone + ", " + skills+", "+experience;
     }
 }

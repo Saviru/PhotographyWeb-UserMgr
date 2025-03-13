@@ -7,7 +7,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Photography</title>
-	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 	 <h1>Photography</h1>

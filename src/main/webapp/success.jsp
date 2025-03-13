@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Registration Successful</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <h2>Successful</h2>

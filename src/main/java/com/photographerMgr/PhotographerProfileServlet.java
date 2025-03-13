@@ -30,7 +30,7 @@ public class PhotographerProfileServlet extends HttpServlet {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         String skills = request.getParameter("skills");
-        String prices = request.getParameter("prices");
+        String experience = request.getParameter("experience");
         
         // Create a UserValidator to check for duplicates
         PhotographerValidator validator = new PhotographerValidator();
@@ -62,7 +62,7 @@ public class PhotographerProfileServlet extends HttpServlet {
             }
         }
         
-        Photographer updatedPhotographer = new Photographer(username, password, email, gender, address, phone, skills, prices);
+        Photographer updatedPhotographer = new Photographer(username, password, email, gender, address, phone, skills, experience);
         
         PhotographerProfileManager profileManager = new PhotographerProfileManager();
         boolean success = profileManager.updatePhotographerProfile(originalUsername, originalEmail, updatedPhotographer);

@@ -39,9 +39,9 @@ public class PhotographerDataProcessor {
                     String address = parts[4];
                     String phone = parts[5];
                     String skills = parts[6];
-                    String prices = parts[7];
+                    String experience = parts[7];
                     
-                    Photographer photographer = new Photographer(username, pwd, email, gender, address, phone, skills, prices);
+                    Photographer photographer = new Photographer(username, pwd, email, gender, address, phone, skills, experience);
                     queue.add(photographer);
                 }
             }

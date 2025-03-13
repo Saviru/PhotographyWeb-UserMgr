@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile Deleted</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">

@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Confirm Delete Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <div class="container">
@@ -18,11 +18,10 @@
             <p>You are about to delete your profile: <strong><%= photographer.getUsername() %></strong></p>
             <p style="color:red;">This action cannot be undone. All your data will be permanently removed.</p>
             
-            <div class="button-group">
+            <div class="inpBtn btns">
                 <form action="DeleteServlet" method="post">
-                    <input type="hidden" name="username" value="<%= photographer.getUsername() %>">
-                    <input type="submit" value="Confirm Delete" class="button delete-button">
-                    <a href="dashboard.jsp" class="button cancel-button">Cancel</a>
+                    <input type="submit" value="Confirm Delete" class="refBtn">
+                    <input type="button" value="Cancel" onclick="window.location.href='profilePhotographer.jsp'" class="button">
                 </form>
             </div>
         <% } else { %>

@@ -8,7 +8,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
     <h2>Welcome to your Dashboard</h2>
@@ -32,9 +32,9 @@
         %>
         <p>Login Time: <%= sdf.format(loginTime) %></p>
         
-        <div style="margin-top: 20px;">
-            <a href="profilePhotographer.jsp" class="button">Photographer Profile</a>
-            <a href="logoutPhotographer.jsp" class="button">Logout</a>
+        <div class="inpBtn btns" style="margin-top: 20px;">
+            <input type="button" value="Update Photographer Profile" onclick="window.location.href='profilePhotographer.jsp'" class="button">
+            <input type="button" value="Logout" onclick="window.location.href='logoutPhotographer.jsp'" class="refBtn">
         </div>
     <% } else { %>
         <p>No photographer found in session. Please <a href="loginPhotographer.jsp">Login here.</a>.</p>

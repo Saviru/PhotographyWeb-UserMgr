@@ -11,7 +11,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Logout</title>
-	<link rel="stylesheet" href="style.css">   
+	<link rel="stylesheet" href="assets/style.css">   
 </head>
 <body>
     <p>Logging out as a Photographer...</p>
