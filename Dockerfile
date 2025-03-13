@@ -1,14 +1,11 @@
-FROM tomcat:9-jdk11
+FROM tomcat:9-jdk17
 
-# Remove default Tomcat apps
+# Remove default webapps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your web application
-COPY ./WebContent/ /usr/local/tomcat/webapps/ROOT/
-COPY ./build/classes/ /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/
-
-# If you have library dependencies
+# Copy the necessary directories
 COPY ./WebContent/WEB-INF/lib/ /usr/local/tomcat/webapps/ROOT/WEB-INF/lib/
+COPY ./build/classes/ /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/
+COPY ./WebContent/ /usr/local/tomcat/webapps/ROOT/
 
 EXPOSE 8080
-CMD ["catalina.sh", "run"]
