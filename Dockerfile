@@ -1,13 +1,14 @@
-FROM tomcat:9.0-jdk11
+FROM tomcat:9-jdk11
 
-# Remove default Tomcat webapps
+# Remove default Tomcat apps
 RUN rm -rf /usr/local/tomcat/webapps/*
 
-# Copy your WAR file to Tomcat's webapps directory
-COPY target/*.war /usr/local/tomcat/webapps/ROOT.war
+# Copy your web application
+COPY ./WebContent/ /usr/local/tomcat/webapps/ROOT/
+COPY ./build/classes/ /usr/local/tomcat/webapps/ROOT/WEB-INF/classes/
 
-# Expose the port Tomcat runs on
+# If you have library dependencies
+COPY ./WebContent/WEB-INF/lib/ /usr/local/tomcat/webapps/ROOT/WEB-INF/lib/
+
 EXPOSE 8080
-
-# Start Tomcat
 CMD ["catalina.sh", "run"]
