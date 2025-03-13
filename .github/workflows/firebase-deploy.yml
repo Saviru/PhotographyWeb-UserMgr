@@ -18,7 +18,6 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
-        cache: maven
 
     - name: Set up Google Cloud SDK
       id: auth
@@ -51,15 +50,23 @@ jobs:
         cat > Dockerfile << 'EOL'
         FROM tomcat:9.0.1-jre8
 
+        # Remove default webapps
+        RUN rm -rf /usr/local/tomcat/webapps/*
+
         # Add servlet-api jar for Servlet 4.0.1
         RUN wget https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar -P /usr/local/tomcat/lib/
-
-        # Copy your application
-        COPY . /tmp/app/
-        RUN cp -r /tmp/app/*.war /usr/local/tomcat/webapps/ || echo "No WAR files found"
         
-        # Remove default Tomcat apps
-        RUN rm -rf /usr/local/tomcat/webapps/ROOT /usr/local/tomcat/webapps/examples /usr/local/tomcat/webapps/docs
+        # Set the deployment directory
+        ENV CATALINA_BASE /usr/local/tomcat
+        
+        # Copy the entire project to webapps/ROOT
+        COPY ./ /usr/local/tomcat/webapps/ROOT/
+        
+        # Make sure class files are accessible
+        RUN mkdir -p /usr/local/tomcat/webapps/ROOT/WEB-INF/classes
+        
+        # Ensure proper permissions
+        RUN chmod -R 755 /usr/local/tomcat/webapps/
 
         EXPOSE 8080
         CMD ["catalina.sh", "run"]
