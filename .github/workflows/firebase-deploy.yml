@@ -13,45 +13,70 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Set up JDK
+    - name: Set up JDK 17
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'adopt'
+        distribution: 'temurin'
+        cache: maven
 
-    - name: Set up Apache Tomcat
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y wget
-        wget https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.tar.gz
-        tar -xzf apache-tomcat-9.0.1.tar.gz
-        sudo mv apache-tomcat-9.0.1 /opt/tomcat
-        sudo chmod +x /opt/tomcat/bin/*.sh
-
-    - name: Deploy to Tomcat
-      run: |
-        sudo cp -r * /opt/tomcat/webapps/
-        /opt/tomcat/bin/startup.sh
+    - name: Set up Google Cloud SDK
+      id: auth
+      uses: google-github-actions/auth@v1
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+        project_id: ${{ secrets.GCP_PROJECT_ID }}
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
       with:
         project_id: ${{ secrets.GCP_PROJECT_ID }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        export_default_credentials: true
 
-    - name: Authorize Docker push
-      run: gcloud auth configure-docker
+    - name: Create Artifact Registry repository if it doesn't exist
+      run: |
+        # Check if repository exists, create if not
+        if ! gcloud artifacts repositories describe usermgr-repo --location=us-central1 &>/dev/null; then
+          gcloud artifacts repositories create usermgr-repo \
+            --repository-format=docker \
+            --location=us-central1 \
+            --description="Repository for Photography Web User Manager"
+        fi
+
+    - name: Authorize Docker for Artifact Registry
+      run: |
+        gcloud auth configure-docker us-central1-docker.pkg.dev
+
+    - name: Create Dockerfile
+      run: |
+        cat > Dockerfile << 'EOL'
+        FROM tomcat:9.0.1-jre8
+
+        # Add servlet-api jar for Servlet 4.0.1
+        RUN wget https://repo1.maven.org/maven2/javax/servlet/javax.servlet-api/4.0.1/javax.servlet-api-4.0.1.jar -P /usr/local/tomcat/lib/
+
+        # Copy your application
+        COPY . /tmp/app/
+        RUN cp -r /tmp/app/*.war /usr/local/tomcat/webapps/ || echo "No WAR files found"
+        
+        # Remove default Tomcat apps
+        RUN rm -rf /usr/local/tomcat/webapps/ROOT /usr/local/tomcat/webapps/examples /usr/local/tomcat/webapps/docs
+
+        EXPOSE 8080
+        CMD ["catalina.sh", "run"]
+        EOL
 
     - name: Build and push Docker image
       run: |
-        docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/photography-web-usermgr:${{ github.sha }} .
-        docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/photography-web-usermgr:${{ github.sha }}
+        # Build the image
+        docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/usermgr-repo/photography-web-usermgr:${{ github.sha }} .
+        
+        # Push the image
+        docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/usermgr-repo/photography-web-usermgr:${{ github.sha }}
 
     - name: Deploy to Cloud Run
       run: |
         gcloud run deploy photography-web-usermgr \
-          --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/photography-web-usermgr:${{ github.sha }} \
+          --image us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/usermgr-repo/photography-web-usermgr:${{ github.sha }} \
           --platform managed \
           --region us-central1 \
           --allow-unauthenticated
@@ -61,5 +86,5 @@ jobs:
 
     - name: Deploy Firebase configuration
       run: |
-        firebase use --add ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }}
+        firebase use ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }}
         firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
