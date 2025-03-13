@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'adopt'
+        distribution: 'temurin'  # Changed from 'adopt' to 'temurin'
 
     - name: Set up Apache Tomcat
       run: |
@@ -57,9 +57,9 @@ jobs:
           --allow-unauthenticated
 
     - name: Set up Firebase CLI
-      run: npm install -g firebase-tools
+      uses: w9jds/firebase-action@v1  # Using a dedicated Firebase Action
 
     - name: Deploy Firebase configuration
       run: |
-        firebase use ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }}
+        firebase use --add ${{ secrets.FIREBASE_PROJECT_ID }} --token ${{ secrets.FIREBASE_TOKEN }}
         firebase deploy --only hosting --token ${{ secrets.FIREBASE_TOKEN }}
