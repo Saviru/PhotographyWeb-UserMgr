@@ -17,10 +17,17 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'adopt'  # Specify the distribution
+        distribution: 'adopt'
 
-    - name: Build project
-      run: ./gradlew build
+    - name: Set up Apache Tomcat
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y tomcat9
+
+    - name: Deploy to Tomcat
+      run: |
+        sudo cp -r * /var/lib/tomcat9/webapps/
+        sudo systemctl restart tomcat9
 
     - name: Set up Cloud SDK
       uses: google-github-actions/setup-gcloud@v1
