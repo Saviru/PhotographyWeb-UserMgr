@@ -17,7 +17,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'
-        distribution: 'temurin'  # Changed from 'adopt' to 'temurin'
+        distribution: 'adopt'
 
     - name: Set up Apache Tomcat
       run: |
@@ -57,7 +57,7 @@ jobs:
           --allow-unauthenticated
 
     - name: Set up Firebase CLI
-      uses: w9jds/firebase-action@v1  # Using a dedicated Firebase Action
+      run: npm install -g firebase-tools
 
     - name: Deploy Firebase configuration
       run: |
