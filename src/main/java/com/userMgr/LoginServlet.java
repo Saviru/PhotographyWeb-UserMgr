@@ -17,17 +17,18 @@ public class LoginServlet extends HttpServlet {
         UserDataProcessor processor = new UserDataProcessor();
         User user = processor.authenticateUser(userIdentifier, password);
         
+        
         if (user != null) {
             // Successful login
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
             session.setAttribute("loginTime", new java.util.Date());
             
-            response.sendRedirect("dashboard.jsp");
+            response.sendRedirect("customer.jsp");
         } else {
             // Failed login
             request.setAttribute("error", "Invalid username/email or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher("customer-login.jsp").forward(request, response);
         }
     }
 }
