@@ -15,7 +15,7 @@ public class ProfileServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
         
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("customer-login.jsp");
             return;
         }
         
@@ -23,6 +23,7 @@ public class ProfileServlet extends HttpServlet {
         String originalEmail = request.getParameter("originalEmail");
         String originalPhone = currentUser.getPhone();
         
+        String fullName = request.getParameter("fullName");
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
@@ -30,14 +31,15 @@ public class ProfileServlet extends HttpServlet {
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
         
+        System.out.println(fullName + ", " + username + " " + password + " " + email + "" + gender + " " + address + " " + phone);
+        
         // Create a UserValidator to check for duplicates
         UserValidator validator = new UserValidator();
         
         // Validate username
         if (!username.equals(originalUsername)) {
             if (validator.isDuplicateUsername(username)) {
-                request.setAttribute("error", "Username already exists! Please choose a different username.");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
+            	response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Username already exists! Please choose a different username.", "UTF-8"));
                 return;
             }
         }
@@ -45,8 +47,8 @@ public class ProfileServlet extends HttpServlet {
         // Validate email
         if (!email.equals(originalEmail)) {
             if (validator.isDuplicateEmail(email)) {
-                request.setAttribute("error", "Email already exists! Please use a different email address.");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
+               // request.setAttribute("error", "Email already exists! Please use a different email address.");
+                response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Email already exists! Please use a different email address.", "UTF-8"));
                 return;
             }
         }
@@ -54,16 +56,24 @@ public class ProfileServlet extends HttpServlet {
         // Validate phone
         if (!phone.equals(originalPhone)) {
             if (validator.isDuplicatePhone(phone)) {
-                request.setAttribute("error", "Phone number already exists! Please use a different phone number.");
-                request.getRequestDispatcher("profile.jsp").forward(request, response);
+               // request.setAttribute("error", "Phone number already exists! Please use a different phone number.");
+                request.getRequestDispatcher("customer.jsp").forward(request, response);
                 return;
             }
         }
         
-        User updatedUser = new User(username, password, email, gender, address, phone);
+        User updatedUser = new User(fullName, username, password, email, gender, address, phone);
+        
+        System.out.println(updatedUser);
         
         UserProfileManager profileManager = new UserProfileManager();
+        
+        System.out.println("\n\nUN: " + originalUsername + ", Email: " + originalEmail);
+        
+        
         boolean success = profileManager.updateUserProfile(originalUsername, originalEmail, updatedUser);
+        
+        System.out.println(success);
         
         if (success) {
             // Update the session with the new user data
@@ -73,6 +83,6 @@ public class ProfileServlet extends HttpServlet {
             request.setAttribute("error", "Failed to update profile. Please try again.");
         }
         
-        request.getRequestDispatcher("profile.jsp").forward(request, response);
+        request.getRequestDispatcher("customer.jsp").forward(request, response);
     }
 }

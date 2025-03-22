@@ -17,7 +17,8 @@ public class UserDataProcessor {
      */
     public User authenticateUser(String userIdentifier, String password) {
         Queue<User> userQueue = loadUsersIntoQueue();
-        return bubbleSearchUser(userQueue, userIdentifier, password);
+        User user = bubbleSearchUser(userQueue, userIdentifier, password);
+        return user;
     }
     
     /**
@@ -31,15 +32,16 @@ public class UserDataProcessor {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(", ");
-                if (parts.length >= 6) {
-                    String username = parts[0];
-                    String pwd = parts[1];
-                    String email = parts[2];
-                    String gender = parts[3];
-                    String address = parts[4];
-                    String phone = parts[5];
+                if (parts.length >= 7) {
+                	String fullName = parts[0];
+                    String username = parts[1];
+                    String pwd = parts[2];
+                    String email = parts[3];
+                    String gender = parts[4];
+                    String address = parts[5];
+                    String phone = parts[6];
                     
-                    User user = new User(username, pwd, email, gender, address, phone);
+                    User user = new User(fullName, username, pwd, email, gender, address, phone);
                     queue.add(user);
                 }
             }
@@ -58,32 +60,30 @@ public class UserDataProcessor {
      * @param password user's password
      * @return User object if found and authenticated, null otherwise
      */
-    private User bubbleSearchUser(Queue<User> userQueue, String userIdentifier, String password) {
-        int size = userQueue.size();
-        User[] users = new User[size];
-        
-        // Convert queue to array for bubble search
-        for (int i = 0; i < size; i++) {
-            users[i] = userQueue.remove();
-        }
-        
-        // Bubble search algorithm
-        for (int i = 0; i < size - 1; i++) {
-            for (int j = 0; j < size - i - 1; j++) {
-                // Check current position
-                if (isMatchingUser(users[j], userIdentifier, password)) {
-                    return users[j];
-                }
-                
-                // Check next position
-                if (isMatchingUser(users[j+1], userIdentifier, password)) {
-                    return users[j+1];
-                }
-            }
-        }
-        
-        return null; // User not found or credentials don't match
+
+private User bubbleSearchUser(Queue<User> userQueue, String userIdentifier, String password) {
+    int size = userQueue.size();
+    User[] users = new User[size];
+
+    // Convert queue to array and preserve queue contents
+    for (int i = 0; i < size; i++) {
+        User user = userQueue.remove();
+        users[i] = user;
+        userQueue.add(user); // Add back to queue
     }
+
+    // Simple linear search is more appropriate for finding a user
+    for (User user : users) {
+        if (isMatchingUser(user, userIdentifier, password)) {
+            return user;
+        }
+    }
+
+    return null; // User not found or credentials don't match
+}
+
+    
+    
     
     /**
      * Checks if a user matches the provided credentials
@@ -93,6 +93,7 @@ public class UserDataProcessor {
      * @return true if matching, false otherwise
      */
     private boolean isMatchingUser(User user, String userIdentifier, String password) {
+    	
         return (user.getUsername().equals(userIdentifier) || 
                 user.getEmail().equals(userIdentifier)) && 
                user.getPassword().equals(password);

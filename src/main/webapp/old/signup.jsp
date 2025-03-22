@@ -13,6 +13,11 @@
     <h2>Registration Form</h2>
     <form action="UserServlet" method="post">
     
+    	<div class="inputs">
+        	<input type="text" id="fullName" name="fullName" required>
+        	<label for="fullName">Full Name</label>
+        </div>
+    
         <div class="inputs">
         	<input type="text" id="username" name="username" required>
         	<label for="username">Username</label>

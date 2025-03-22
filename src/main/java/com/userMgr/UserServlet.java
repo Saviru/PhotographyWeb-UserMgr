@@ -1,6 +1,7 @@
 package com.userMgr;
 
 import java.io.FileWriter;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 
@@ -14,6 +15,7 @@ public class UserServlet extends HttpServlet {
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
+        	String fullName = request.getParameter("fullName");
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
@@ -26,38 +28,66 @@ public class UserServlet extends HttpServlet {
             
             // Check for duplicate username
             if (validator.isDuplicateUsername(username)) {
-                request.setAttribute("errorMessage", "Username already exists! Please choose a different username.");
-                request.getRequestDispatcher("signup.jsp").forward(request, response);
+               // request.setAttribute("errorMessage", "Username already exists! Please choose a different username.");
+                response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Username already exists! Please choose a different username.", "UTF-8"));
                 return;
             }
             
             // Check for duplicate email
             if (validator.isDuplicateEmail(email)) {
-                request.setAttribute("errorMessage", "Email already exists! Please use a different email address.");
-                request.getRequestDispatcher("signup.jsp").forward(request, response);
+               // request.setAttribute("errorMessage", "Email already exists! Please use a different email address.");
+                response.sendRedirect("customer-signup.jsp?error=username&message=" + java.net.URLEncoder.encode("Email already exists! Please choose a different email.", "UTF-8"));
                 return;
             }
             
+            
+            
+         // Validate email format
+            if (!isValidEmail(email)) {
+                //request.setAttribute("errorMessage", "Invalid email format! Please enter a valid email address.");
+                response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Invalid email format! Please enter a valid email address.", "UTF-8"));
+                return;
+            }
+
+
+            
             // Check for duplicate phone number
             if (validator.isDuplicatePhone(phone)) {
-                request.setAttribute("errorMessage", "Phone number already exists! Please use a different phone number.");
-                request.getRequestDispatcher("signup.jsp").forward(request, response);
+                //request.setAttribute("errorMessage", "Phone number already exists! Please use a different phone number.");
+                response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Phone number already exists! Please choose a different phone number.", "UTF-8"));
                 return;
             }
             
             // All validations passed, create user
-            User user = new User(username, password, email, gender, address, phone);
+            User user = new User(fullName, username, password, email, gender, address, phone);
             
             try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
                 writer.write(user.toString() + System.lineSeparator());
             }
             
             // Redirect to success page
-            response.sendRedirect("success.jsp");
+            response.sendRedirect("customer-login.jsp");
         } catch (Exception e) {
             // Forward to error page with error message
-            request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-            request.getRequestDispatcher("signup.jsp").forward(request, response);
+           /*request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
+            request.getRequestDispatcher("customer-signup.jsp?error=demo").forward(request, response);*/
+            response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Phone number already exists! Please choose a different phone number.", "UTF-8"));
         }
+    }
+
+    private boolean isValidEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            return false;
+        }
+
+        // Check for @ symbol and proper domain format
+        int atIndex = email.indexOf('@');
+        if (atIndex == -1 || atIndex == 0 || atIndex == email.length() - 1) {
+            return false;
+        }
+
+        // Check for domain with at least one dot
+        String domain = email.substring(atIndex + 1);
+        return domain.contains(".") && domain.indexOf(".") < domain.length() - 1;
     }
 }

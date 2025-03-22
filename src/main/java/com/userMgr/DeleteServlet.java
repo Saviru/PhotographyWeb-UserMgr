@@ -15,16 +15,21 @@ public class DeleteServlet extends HttpServlet {
         User currentUser = (User) session.getAttribute("user");
         
         if (currentUser == null) {
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("customer-login.jsp");
             return;
         }
         
-        String username = request.getParameter("username");
+        String username = request.getParameter("originalUsername");
+        
+        
+        System.out.println("UN: "+username);
+        System.out.println("CU: "+currentUser.getUsername());
+     
         
         // Validate that the username from the form matches the logged-in user
         if (!currentUser.getUsername().equals(username)) {
-            request.setAttribute("errorMessage", "Invalid user verification");
-            request.getRequestDispatcher("deleteConfirm.jsp").forward(request, response);
+            request.setAttribute("error", "Failed to delete user profile : Invalid user verification.");
+            request.getRequestDispatcher("customer.jsp").forward(request, response);
             return;
         }
         
@@ -35,11 +40,11 @@ public class DeleteServlet extends HttpServlet {
         if (success) {
             // Invalidate session and redirect to a confirmation page
             session.invalidate();
-            response.sendRedirect("deletionSuccess.jsp");
+            response.sendRedirect("customer-login.jsp");
         } else {
             // Redirect to error page
-            request.setAttribute("errorMessage", "Failed to delete user profile");
-            request.getRequestDispatcher("deleteConfirm.jsp").forward(request, response);
+            request.setAttribute("error", "Failed to delete user profile");
+            request.getRequestDispatcher("customer.jsp").forward(request, response);
         }
     }
 }
