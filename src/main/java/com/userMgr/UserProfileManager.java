@@ -23,22 +23,15 @@ public class UserProfileManager {
         Queue<String> userRecords = loadUsersIntoQueue();
         boolean userFound = false;
         
-        System.out.println("\n\nUN: " + originalUsername + ", Email: " + originalEmail);
-        
         try {
             // Convert queue to array for bubble search
             String[] userArray = userRecords.toArray(new String[0]);
             int userIndex = bubbleSearchUserIndex(userArray, originalUsername, originalEmail);
             
-            System.out.println("User index: " + userIndex);
-            
             if (userIndex != -1) {
                 // User found, update the record
                 userArray[userIndex] = updatedUser.toString();
                 userFound = true;
-                
-                System.out.println("User found: " + userArray[userIndex]);
-                
                 
                 // Write the updated records back to the file
                 try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_PATH))) {
@@ -124,9 +117,9 @@ public class UserProfileManager {
      */
     private boolean isUserRecord(String record, String username, String email) {
         String[] parts = record.split(", ");
-        if (parts.length >= 4) {
-            String recordUsername = parts[1];
-            String recordEmail = parts[3];
+        if (parts.length >= 3) {
+            String recordUsername = parts[0];
+            String recordEmail = parts[2];
             
             return recordUsername.equals(username) || recordEmail.equals(email);
         }

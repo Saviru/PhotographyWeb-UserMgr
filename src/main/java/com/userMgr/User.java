@@ -1,7 +1,6 @@
 package com.userMgr;
 
 public class User {
-	private String fullName;	
     private String username;
     private String password;
     private String email;
@@ -10,7 +9,6 @@ public class User {
     private String phone;
     
     public User() {
-    	this.fullName = "Null";
 		this.username = "Null";
 		this.password = "Null";
 		this.email = "Null";
@@ -19,9 +17,8 @@ public class User {
 		this.phone = "Null";
     }
 
-    public User(String fullName ,String username, String password, String email, String gender, String address, String phone) {
-        this.fullName = fullName;
-    	this.username = username;
+    public User(String username, String password, String email, String gender, String address, String phone) {
+        this.username = username;
         this.password = password;
         this.email = email;
         this.gender = gender;
@@ -29,21 +26,12 @@ public class User {
         this.phone = phone;
     }
     
-    public String getFullName() {
-    	return fullName;
-    }
-    
-    public void setFullName(String fullName) {
-		this.fullName = fullName;
-	}
-    
     // Getters and setters
     public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-    	username = username.toLowerCase();
         this.username = username;
     }
 
@@ -109,6 +97,6 @@ public class User {
 
     @Override
     public String toString() {
-        return fullName + ", " + username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone;
+        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone;
     }
 }

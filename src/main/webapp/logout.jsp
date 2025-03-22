@@ -3,7 +3,7 @@
 
 <%
     session.invalidate();
-    response.sendRedirect("customer-login.jsp");
+    response.sendRedirect("login.jsp");
 %>
 <html>
 <head>
