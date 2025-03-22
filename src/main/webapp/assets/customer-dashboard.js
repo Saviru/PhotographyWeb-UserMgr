@@ -415,8 +415,8 @@ function handleSavePassword(e) {
 
 function loadProfileData() {
     // Set the welcome text from the input value
-    document.getElementById("customer-name").textContent = 
-        document.getElementById("customer-name-input").value;
+    /*document.getElementById("customer-name").textContent = 
+        document.getElementById("customer-name-input").value;*/
     
     // Set gender display from selected radio button or default
     const selectedGender = document.querySelector('input[name="gender"]:checked');

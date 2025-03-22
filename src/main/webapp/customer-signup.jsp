@@ -7,8 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Sign Up</title>
-    <link rel="stylesheet" href="assets/auth.css">
+    <link rel="stylesheet" href="assets/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 </head>
 <body>
     <div class="background"></div>
@@ -22,8 +23,8 @@
                 <!-- User Type Selection -->
                 <div class="user-type-question">Sign up as a</div>
                 <div class="user-type-selection">
-                    <a href="customer-signup.html" class="user-type-link active">Customer</a>
-                    <a href="photographer-signup.html" class="user-type-link">Photographer</a>
+                    <a href="customer-signup.jsp" class="user-type-link active">Customer</a>
+                    <a href="photographer-signup.jsp" class="user-type-link">Photographer</a>
                 </div>
                 
                 <div class="social-icons">
@@ -41,13 +42,13 @@
                         <h2>Sign Up</h2>
                         
                         <div class="input-box">
-                            <input type="text" id="fullName name-input" name="fullName" required placeholder=" ">
+                            <input type="text" id="fullName name-input" minlength="5" maxlength="35" name="fullName" required placeholder=" ">
                             <label id="name-label" for="fullName">Full Name</label>
                             <i class="icon fas fa-user"></i>
                         </div>
                         
                         <div class="input-box">
-                            <input type="text" id="username username-input" name="username" required placeholder=" ">
+                            <input type="text" id="username username-input" minlength="5" maxlength="15" name="username" required placeholder=" ">
                             <label id="username-label" for="username">Username</label>
                             <i class="icon fas fa-file-signature"></i>
                         </div>
@@ -71,25 +72,25 @@
                         </div>
 
                         <div class="input-box">
-                            <input type="phone" id="phone phone-input" name="phone" required placeholder=" ">
+                            <input type="number" id="phone phone-input" minlength="10" maxlength="10" name="phone" required placeholder=" ">
                             <label id="phone-label" for="phone">Phone</label>
                             <i class="icon fas fa-phone"></i>
                         </div>
 
                         <div class="input-box">
-                            <input type="address" id="address address-input" name="address" required placeholder=" ">
+                            <input type="text" id="address address-input" minlength="5" name="address" required placeholder=" ">
                             <label id="address-label" for="address">Address</label>
                             <i class="icon fas fa-house"></i>
                         </div>
 
                         <div class="input-box">
-                            <input type="password" id="password password-input" name="password"  required placeholder=" ">
+                            <input type="password" id="password password-input" minlength="6" name="password"  required placeholder=" ">
                             <label id="password-label" for="password" >Password</label>
                             <i class="icon fas fa-lock"></i>
                         </div>
                         
                         <div class="input-box">
-                            <input type="password" id="confirm-password-input" required placeholder=" ">
+                            <input type="password" id="confirm-password-input" minlength="6" required placeholder=" ">
                             <label id="confirm-password-label">Confirm Password</label>
                             <i class="icon fas fa-lock"></i>
                             <span id="password-error" style="color: red; font-size: 12px; display: none;">Passwords do not match</span>
@@ -127,6 +128,6 @@
             </div>
         </div>
     </div>
-    <script src="assets/auth.js"></script>
+    <script src="assets/main.js"></script>
 </body>
 </html>

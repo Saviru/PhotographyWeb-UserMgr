@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.userMgr.User" %>	
+<%@ page import="com.userMgr.models.User" %>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,7 @@
         <p>Phone: <%= user.getPhone() %></p>
         <br>
         <p>Current Date and Time (UTC - YYYY-MM-DD HH:MM:SS formatted): 2025-03-05 17:38:21</p>
-        <p>Current User's Login: <%= user.getUsername() %></p>
+        <p>Current User's Login: Saviru</p>
         <br>
         <% 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="com.userMgr.User "%>
+ <%@ page import="com.userMgr.models.User"%>
  
 <!DOCTYPE html>
 <html>

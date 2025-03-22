@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.userMgr.User" %>
+<%@ page import="com.userMgr.models.User" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +9,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Dashboard</title>
-    <link rel="stylesheet" href="assets/auth.css">
-    <link rel="stylesheet" href="assets/dashboard.css">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="stylesheet" href="assets/dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -32,9 +32,15 @@
             </div>
         </div>
         
+        <% User user = (User)session.getAttribute("user"); %>
         <div class="main-content">
             <header class="glass-card">
-                <h1>Welcome, <span id="customer-name">Customer</span>!</h1>
+            
+            	<%if(user!=null) { %>
+                	<h1>Welcome, <span id="customer-name"><%= user.getFullName() %></span>!</h1>
+                <% } else {%>
+                    <h1>Welcome to Dashboard !</h1>
+                <% } %>
                 <div class="user-info">
                     <div class="notifications">
                         <i class="fas fa-bell"></i>
@@ -48,7 +54,6 @@
             
             <div class="content-section glass-card">
                 <div class="profile-section">
-                <% User user = (User)session.getAttribute("user"); %>
     			<% if (user != null) { %>
                     <div class="profile-header">
                         <h2>My Profile</h2>
@@ -62,7 +67,7 @@
                         	<div class="profile-field">
                                 <label>Full Name</label>
                                 <div class="input-box glass-input">
-                                    <input type="text" id="fullName customer-name-input" name="fullName" value="<%= user.getFullName() %>" required disabled>
+                                    <input type="text" id="fullName customer-name-input" minlength="5" maxlength="35" name="fullName" value="<%= user.getFullName() %>" required disabled>
                                     <i class="icon fas fa-user"></i>
                                 </div>
                             </div>
@@ -71,7 +76,7 @@
                             <div class="profile-field">
                                 <label>Username</label>
                                 <div class="input-box glass-input">
-                                    <input type="text" id="username customer-name-input" name="username" value="<%= user.getUsername() %>" required disabled>
+                                    <input type="text" id="username customer-name-input" minlength="5" maxlength="15" name="username" value="<%= user.getUsername() %>" required disabled>
                                     <i class="icon fas fa-user"></i>
                                 </div>
                             </div>
@@ -99,7 +104,7 @@
                             <div class="profile-field">
                                 <label>Phone</label>
                                 <div class="input-box glass-input">
-                                    <input type="tel" id="phone phone-input" name="phone" value="<%= user.getPhone() %>" required disabled>
+                                    <input type="tel" id="phone phone-input" name="phone" minlength="10" maxlength="10"  value="<%= user.getPhone() %>" required disabled>
                                     <i class="icon fas fa-phone"></i>
                                 </div>
                             </div>
@@ -107,25 +112,25 @@
                             <div class="profile-field">
                                 <label>Address</label>
                                 <div class="input-box glass-input">
-                                    <input type="text" id="address address-input" name="address" value="<%= user.getOriginalAddress() %>" required disabled>
+                                    <input type="text" id="address address-input" name="address" minlength="5" value="<%= user.getOriginalAddress() %>" required disabled>
                                     <i class="icon fas fa-house"></i>
                                 </div>
                             </div>
                             
                             
-                            <div class="profile-field">
+                            <!--  <div class="profile-field">
                                 <label>Photography Preferences</label>
                                 <div class="input-box glass-input">
                                     <input type="text" id="customer-preferences-input" value="No Data !" required disabled>
                                     <i class="icon fas fa-image"></i>
                                 </div>
-                            </div>
+                            </div>-->
                             
                             <!-- Password section removed -->
                             <div class="profile-field edit-only" style="display: none;">
                                 <label>New Password</label>
                                 <div class="input-box glass-input">
-                                    <input type="password" id="password secondary-address-input" name="password" value="<%= user.getPassword() %>" placeholder="Your Password"disabled>
+                                    <input type="password" id="password secondary-address-input" minlength="6" name="password" value="<%= user.getPassword() %>" placeholder="Your Password"disabled>
                                     <i class="icon fas fa-building"></i>
                                 </div>
                             </div>
@@ -134,14 +139,16 @@
                         
                         	<% if (request.getAttribute("message") != null) { %>
     	        	    	<p style="color: green;"><%= request.getAttribute("message") %></p>
+    	        	    	<script>showNotification('<%= request.getAttribute("message") %>')</script>
         	    			<% } %>
             				<% if (request.getAttribute("error") != null) { %>
                 			<p style="color: red;"><%= request.getAttribute("error") %></p>
+                			<script>showNotification('<%= request.getAttribute("error") %>', type = "error")</script>
             				<% } %>
                         
                         <div class="form-actions hidden">
 	                    	
-                            <button type="submit"  class="button btn btn-animated save-btn" onclick="showNotification('Pofile updated successfully!')">Save Changes</button> <!-- onclick="handleSaveProfile(event)" -->
+                            <button type="submit"  class="button btn btn-animated save-btn">Save Changes</button> <!-- onclick="handleSaveProfile(event)" -->
                             <button type="button" class="btn btn-animated cancel-btn" id="cancel-edit-btn" onclick="handleCancelEdit(event)">Cancel</button>
                         </div>
                     </form>
@@ -168,6 +175,7 @@
         <div class="modal-content glass-card">
             <h3><i class="fas fa-exclamation-triangle"></i> Delete Profile</h3>
             <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+            <% if (user != null) { %>
             <div class="modal-actions">
             	<form action="DeleteServlet" method="post">
             		<input type="hidden" name="usernameDel" value="<%= user.getUsername() %>">
@@ -175,10 +183,11 @@
                 	<button type="submit" class="button btn btn-animated confirm-delete-btn">Yes, Delete My Profile</button> <!-- onclick="handleConfirmDelete(event)" -->
                 </form>
             </div>
+            <% } %>
         </div>
     </div>
     
-    <script src="assets/auth.js"></script>
+    <script src="assets/main.js"></script>
     <script src="assets/customer-dashboard.js"></script>
 </body>
 </html>

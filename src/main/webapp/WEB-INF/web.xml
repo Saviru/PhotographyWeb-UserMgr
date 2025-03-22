@@ -7,7 +7,7 @@
     <!-- User Management-->
     <servlet>
         <servlet-name>UserServlet</servlet-name>
-        <servlet-class>com.userMgr.UserServlet</servlet-class>
+        <servlet-class>com.userMgr.servlets.UserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UserServlet</servlet-name>
@@ -16,7 +16,7 @@
     
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>com.userMgr.LoginServlet</servlet-class>
+        <servlet-class>com.userMgr.servlets.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -25,7 +25,7 @@
     
     <servlet>
         <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>com.userMgr.ProfileServlet</servlet-class>
+        <servlet-class>com.userMgr.servlets.ProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
@@ -34,7 +34,7 @@
     
     <servlet>
     	<servlet-name>DeleteServlet</servlet-name>
-    	<servlet-class>com.userMgr.DeleteServlet</servlet-class>
+    	<servlet-class>com.userMgr.servlets.DeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
     	<servlet-name>DeleteServlet</servlet-name>
@@ -46,7 +46,7 @@
     <!-- Photographer Management-->
     <servlet>
         <servlet-name>PhotographerServlet</servlet-name>
-        <servlet-class>com.photographerMgr.PhotographerServlet</servlet-class>
+        <servlet-class>com.photographerMgr.servlets.PhotographerServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PhotographerServlet</servlet-name>
@@ -55,7 +55,7 @@
     
     <servlet>
         <servlet-name>PhotographerLoginServlet</servlet-name>
-        <servlet-class>com.photographerMgr.PhotographerLoginServlet</servlet-class>
+        <servlet-class>com.photographerMgr.servlets.PhotographerLoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PhotographerLoginServlet</servlet-name>
@@ -64,7 +64,7 @@
     
     <servlet>
         <servlet-name>PhotographerProfileServlet</servlet-name>
-        <servlet-class>com.photographerMgr.PhotographerProfileServlet</servlet-class>
+        <servlet-class>com.photographerMgr.servlets.PhotographerProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>PhotographerProfileServlet</servlet-name>
@@ -73,7 +73,7 @@
     
     <servlet>
     	<servlet-name>PhotographerDeleteServlet</servlet-name>
-    	<servlet-class>com.photographerMgr.PhotographerDeleteServlet</servlet-class>
+    	<servlet-class>com.photographerMgr.servlets.PhotographerDeleteServlet</servlet-class>
     </servlet>
     <servlet-mapping>
     	<servlet-name>PhotographerDeleteServlet</servlet-name>
@@ -84,8 +84,6 @@
     
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
-        <welcome-file>login.jsp</welcome-file>
-        <welcome-file>loginPhotographer.jsp</welcome-file>
     </welcome-file-list>
     
 </web-app>

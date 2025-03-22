@@ -7,12 +7,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customer Login</title>
-    <link rel="stylesheet" href="assets/auth.css">
+    <link rel="stylesheet" href="assets/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="background"></div>
-    <div class="container">
+    <div class="container glass-card">
         <div class="content">
             <h2 class="logo"><i class="fas fa-key"></i>Brand</h2>
             <div class="text-sci">
@@ -22,8 +22,8 @@
                 <!-- User Type Selection -->
                 <div class="user-type-question">Login as a</div>
                 <div class="user-type-selection">
-                    <a href="customer-login.html" class="user-type-link active">Customer</a>
-                    <a href="photographer-login.html" class="user-type-link">Photographer</a>
+                    <a href="customer-login.jsp" class="user-type-link active">Customer</a>
+                    <a href="photographer-login.jsp" class="user-type-link">Photographer</a>
                 </div>
                 
                 <div class="social-icons">
@@ -66,6 +66,6 @@
             </div>
         </div>
     </div>
-    <script src="assets/auth.js"></script>
+    <script src="assets/main.js"></script>
 </body>
 </html>
