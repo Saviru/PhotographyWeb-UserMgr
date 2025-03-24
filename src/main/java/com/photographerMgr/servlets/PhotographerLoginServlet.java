@@ -26,7 +26,7 @@ public class PhotographerLoginServlet extends HttpServlet {
             session.setAttribute("photographer", photographer);
             session.setAttribute("loginTime", new java.util.Date());
             
-            response.sendRedirect("dashboardPhotographer.jsp");
+            response.sendRedirect("photographer.jsp");
         } else {
             // Failed login
             request.setAttribute("error", "Invalid username/email or password");
