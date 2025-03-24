@@ -126,7 +126,6 @@
                                 </div>
                             </div>-->
                             
-                            <!-- Password section removed -->
                             <div class="profile-field edit-only" style="display: none;">
                                 <label>New Password</label>
                                 <div class="input-box glass-input">

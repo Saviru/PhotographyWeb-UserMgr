@@ -30,7 +30,7 @@ public class PhotographerLoginServlet extends HttpServlet {
         } else {
             // Failed login
             request.setAttribute("error", "Invalid username/email or password");
-            request.getRequestDispatcher("loginPhotographer.jsp").forward(request, response);
+            request.getRequestDispatcher("photographer-login.jsp").forward(request, response);
         }
     }
 }

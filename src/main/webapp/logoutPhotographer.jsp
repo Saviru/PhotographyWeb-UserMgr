@@ -5,7 +5,7 @@
 
 <%
     session.invalidate();
-    response.sendRedirect("loginPhotographer.jsp");
+    response.sendRedirect("photographer-login.jsp");
 %>
 <html>
 <head>

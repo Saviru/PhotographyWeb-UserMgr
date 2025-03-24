@@ -31,22 +31,25 @@ public class PhotographerServlet extends HttpServlet {
             
             // Check for duplicate username
             if (validator.isDuplicateUsername(username)) {
-                request.setAttribute("errorMessage", "Username already exists! Please choose a different username.");
-                request.getRequestDispatcher("signupPhotographer.jsp").forward(request, response);
+                //request.setAttribute("errorMessage", "Username already exists! Please choose a different username.");
+                //request.getRequestDispatcher("photographer-signup.jsp").forward(request, response);
+                response.sendRedirect("photographer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Username already exists! Please choose a different username.", "UTF-8"));
                 return;
             }
             
             // Check for duplicate email
             if (validator.isDuplicateEmail(email)) {
-                request.setAttribute("errorMessage", "Email already exists! Please use a different email address.");
-                request.getRequestDispatcher("signupPhotographer.jsp").forward(request, response);
+                //request.setAttribute("errorMessage", "Email already exists! Please use a different email address.");
+                //request.getRequestDispatcher("photographer-signup.jsp").forward(request, response);
+            	response.sendRedirect("photographer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Invalid email format! Please enter a valid email address.", "UTF-8"));
                 return;
             }
             
             // Check for duplicate phone number
             if (validator.isDuplicatePhone(phone)) {
-                request.setAttribute("errorMessage", "Phone number already exists! Please use a different phone number.");
-                request.getRequestDispatcher("signupPhotographer.jsp").forward(request, response);
+                //request.setAttribute("errorMessage", "Phone number already exists! Please use a different phone number.");
+                //request.getRequestDispatcher("photographer-signup.jsp").forward(request, response);
+            	response.sendRedirect("customer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Phone number already exists! Please choose a different phone number.", "UTF-8"));
                 return;
             }
             
@@ -58,11 +61,12 @@ public class PhotographerServlet extends HttpServlet {
             }
             
             // Redirect to success page
-            response.sendRedirect("successPhotographer.jsp");
+            response.sendRedirect("photographer-login.jsp");
         } catch (Exception e) {
             // Forward to error page with error message
-            request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
-            request.getRequestDispatcher("signupPhotographer.jsp").forward(request, response);
+            //request.setAttribute("errorMessage", "Registration failed: " + e.getMessage());
+            //request.getRequestDispatcher("photographer-signup.jsp").forward(request, response);
+            response.sendRedirect("photographer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Phone number already exists! Please choose a different phone number.", "UTF-8"));
         }
     }
 }

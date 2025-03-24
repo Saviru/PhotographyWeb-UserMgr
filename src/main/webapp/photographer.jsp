@@ -1,11 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Photographer Dashboard</title>
-    <link rel="stylesheet" href="auth.css">
-    <link rel="stylesheet" href="dashboard.css">
+    <link rel="stylesheet" href="assets/main.css">
+    <link rel="stylesheet" href="assets/dashboards.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
@@ -102,6 +105,15 @@
                             </div>
                         </div>
                         
+                        <div class="profile-field edit-only" style="display: none;">
+                                <label>New Password</label>
+                                <div class="input-box glass-input">
+                                    <input type="password" id="password secondary-address-input" minlength="6" name="password" value="aaaa" placeholder="Your Password" disabled>
+                                    <i class="icon fas fa-building"></i>
+                                </div>
+                        </div>
+                        
+                        
                         <div class="portfolio-section">
                             <h3>Portfolio Samples</h3>
                             <div class="portfolio-gallery" id="portfolio-gallery">
@@ -125,9 +137,7 @@
                     </form>
                     
                     <div class="delete-profile-container">
-                        <button type="button" class="btn btn-animated delete-btn" id="delete-profile-btn">
-                            <i class="fas fa-trash-alt"></i> Delete Profile
-                        </button>
+                        <button type="button" class="btn btn-animated delete-btn" id="delete-profile-btn"><i class="fas fa-trash-alt"></i> Delete Profile</button>
                     </div>
                 </div>
             </div>
@@ -146,7 +156,8 @@
         </div>
     </div>
     
-    <script src="auth.js"></script>
-    <script src="photographer-dashboard.js"></script>
+    <script src="assets/main.js"></script>
+    <script src="assets/photographer-dashboard.js"></script>
+    <script src="assets/customer-dashboard.js"></script>
 </body>
 </html>
