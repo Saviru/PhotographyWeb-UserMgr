@@ -173,7 +173,7 @@
         </div>
     </div>
     
-    <!-- Confirmation Modal -->
+
     <div class="modal" id="delete-confirmation-modal">
         <div class="modal-content glass-card">
             <h3><i class="fas fa-exclamation-triangle"></i> Delete Profile</h3>

@@ -18,7 +18,7 @@ public class PhotographerDeleteServlet extends HttpServlet {
         Photographer currentPhotographer = (Photographer) session.getAttribute("photographer");
         
         if (currentPhotographer == null) {
-            response.sendRedirect("loginPhotographer.jsp");
+            response.sendRedirect("photographer-login.jsp");
             return;
         }
         
@@ -26,8 +26,8 @@ public class PhotographerDeleteServlet extends HttpServlet {
         
         // Validate that the username from the form matches the logged-in user
         if (!currentPhotographer.getUsername().equals(username)) {
-            request.setAttribute("errorMessage", "Invalid user verification");
-            request.getRequestDispatcher("deleteConfirmPhotographer.jsp").forward(request, response);
+            request.setAttribute("error", "Invalid user verification.");
+            request.getRequestDispatcher("photographer.jsp").forward(request, response);
             return;
         }
         
@@ -38,11 +38,11 @@ public class PhotographerDeleteServlet extends HttpServlet {
         if (success) {
             // Invalidate session and redirect to a confirmation page
             session.invalidate();
-            response.sendRedirect("deletionSuccess.jsp");
+            response.sendRedirect("photographer-login.jsp");
         } else {
             // Redirect to error page
-            request.setAttribute("errorMessage", "Failed to delete user profile");
-            request.getRequestDispatcher("deleteConfirmPhotographer.jsp").forward(request, response);
+            request.setAttribute("error", "Failed to delete user profile.");
+            request.getRequestDispatcher("photographer.jsp").forward(request, response);
         }
     }
 }
