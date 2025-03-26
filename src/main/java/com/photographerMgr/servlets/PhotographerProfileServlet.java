@@ -30,6 +30,7 @@ public class PhotographerProfileServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         String email = request.getParameter("email");
+        String fullName = request.getParameter("fullName");
         String gender = request.getParameter("gender");
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
@@ -66,7 +67,7 @@ public class PhotographerProfileServlet extends HttpServlet {
             }
         }
         
-        Photographer updatedPhotographer = new Photographer(username, password, email, gender, address, phone, skills, experience);
+        Photographer updatedPhotographer = new Photographer(username, password, email, fullName, gender, address, phone, skills, experience);
         
         PhotographerProfileManager profileManager = new PhotographerProfileManager();
         boolean success = profileManager.updatePhotographerProfile(originalUsername, originalEmail, updatedPhotographer);

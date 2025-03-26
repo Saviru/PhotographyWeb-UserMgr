@@ -27,7 +27,7 @@
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> 
             </ul>
             <div class="sidebar-footer">
-                <a href="logout.jsp" class="logout-btn btn-animated"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                <a href="logoutPhotographer.jsp" class="logout-btn btn-animated"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
         
@@ -67,8 +67,8 @@
                         <div class="profile-grid">
                         	<div class="profile-field">
                                 <label>Full Name</label>
+                                    <input type="text" id="fullName customer-name-input" minlength="5" maxlength="35" name="fullName" value="<%= photographer.getFullName() %>" required disabled>
                                 <div class="input-box glass-input">
-                                    <input type="text" id="fullName customer-name-input" minlength="5" maxlength="35" name="fullName" value="photographer.getFullName()" required disabled>
                                     <i class="icon fas fa-user"></i>
                                 </div>
                             </div>
@@ -163,7 +163,7 @@
                     </div>
         		
    					 <% } else { %>
-        			<p>No user found in session. Please <a class="refLink" href="customer-login.jsp" >login</a>.</p>
+        			<h1>No user found in session. Please <a class="refLink" href="customer-login.jsp" >login</a>.</h1>
     				<% } %>
         			
 

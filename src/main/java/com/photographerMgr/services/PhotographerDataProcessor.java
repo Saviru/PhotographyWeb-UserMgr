@@ -33,17 +33,18 @@ public class PhotographerDataProcessor {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(", ");
-                if (parts.length >= 8) {
+                if (parts.length >= 9) {
                     String username = parts[0];
                     String pwd = parts[1];
                     String email = parts[2];
-                    String gender = parts[3];
-                    String address = parts[4];
-                    String phone = parts[5];
-                    String skills = parts[6];
-                    String experience = parts[7];
+                    String fullName = parts[3];
+                    String gender = parts[4];
+                    String address = parts[5];
+                    String phone = parts[6];
+                    String skills = parts[7];
+                    String experience = parts[8];
                     
-                    Photographer photographer = new Photographer(username, pwd, email, gender, address, phone, skills, experience);
+                    Photographer photographer = new Photographer(username, pwd, email, fullName, gender, address, phone, skills, experience);
                     queue.add(photographer);
                 }
             }

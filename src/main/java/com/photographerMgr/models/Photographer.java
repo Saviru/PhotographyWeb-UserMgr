@@ -4,6 +4,7 @@ public class Photographer {
     private String username;
     private String password;
     private String email;
+    private String fullName;
     private String gender;
     private String address;
     private String phone;
@@ -11,9 +12,6 @@ public class Photographer {
     private String experience;
     
     public Photographer() {
-    	this.username = "Null";
-		this.password = "Null";
-		this.email = "Null";
 		this.gender = "Hidden";
 		this.address = "Null";
 		this.phone = "Null";
@@ -21,10 +19,11 @@ public class Photographer {
 		this.experience = "Null";
     }
 
-    public Photographer(String username, String password, String email, String gender, String address, String phone, String skills, String experience) {
+    public Photographer(String username, String password, String email, String gender, String address, String phone, String skills, String experience, String fName) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.fullName = fName;
         this.gender = gender;
         setAddress(address); // Using setter to validate/transform address
         this.phone = phone;
@@ -128,10 +127,18 @@ public class Photographer {
     public void setExperience(String experience) {
     	this.experience = experience;
     }
+    
+    public String getFullName() {
+		return fullName;
+	}
+    
+    public void setFullName(String fullName) {
+    	this.fullName = fullName;
+    }
    
 
     @Override
     public String toString() {
-        return username + ", " + password + ", " + email + ", " + gender + ", " + address + ", " + phone + ", " + skills+", "+experience;
+        return username + ", " + password + ", " + email + ", " + fullName + ", " + gender + ", " + address + ", " + phone + ", " + skills+", "+experience;
     }
 }

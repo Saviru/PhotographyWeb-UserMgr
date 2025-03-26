@@ -20,6 +20,7 @@ public class PhotographerServlet extends HttpServlet {
             String username = request.getParameter("username");
             String password = request.getParameter("password");
             String email = request.getParameter("email");
+            String fullName = request.getParameter("fullName");
             String gender = request.getParameter("gender");
             String address = request.getParameter("address");
             String phone = request.getParameter("phone");
@@ -54,7 +55,7 @@ public class PhotographerServlet extends HttpServlet {
             }
             
             // All validations passed, create user
-            Photographer photographer = new Photographer(username, password, email, gender, address, phone, skills, experience);
+            Photographer photographer = new Photographer(username, password, email, fullName, gender, address, phone, skills, experience);
             
             try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
                 writer.write(photographer.toString() + System.lineSeparator());
