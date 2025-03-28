@@ -20,11 +20,11 @@
         <div class="sidebar glass-card">
             <h2 class="logo"><i class="fas fa-key"></i>Brand</h2>
             <ul class="nav-links">
-                <li class="active"><a href="customer.html"><i class="fas fa-user"></i> My Profile</a></li>
-                <li><a href="bookings.html"><i class="fas fa-calendar"></i> My Bookings</a></li>
+                <li><a href="#"><i class="fas fa-building"></i> Dashboard</a></li>
+                <li><a href="#"><i class="fas fa-calendar"></i> My Bookings</a></li>
                 <li><a href="#"><i class="fas fa-camera"></i> Find Photographers</a></li>
-                <li><a href="favorites.html"><i class="fas fa-heart"></i> Favorites</a></li>
                 <li><a href="#"><i class="fas fa-history"></i> Booking History</a></li>
+                <li class="active"><a href="customer.html"><i class="fas fa-user"></i> My Profile</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
             </ul>
             <div class="sidebar-footer">
@@ -32,7 +32,8 @@
             </div>
         </div>
         
-        <% User user = (User)session.getAttribute("user"); %>
+        <% User user = (User)session.getAttribute("user");%>
+        
         <div class="main-content">
             <header class="glass-card">
             
@@ -46,8 +47,14 @@
                         <i class="fas fa-bell"></i>
                         <span class="badge">2</span>
                     </div>
+                    
                     <div class="user-avatar">
-                        <img src="../assets/default-avatar.png" alt="Profile Picture" id="profile-picture">
+                    	<% if (user != null) { %>                  		
+                    		<img src="assets/defaults/<%=user.getDefaultProfilePic()%>" alt="Profile Picture" id="profile-picture">
+                        <% } else { %>
+		                    <img src="assets/defaults/unknown.gif" alt="Profile Picture" id="profile-picture">
+               	        <% } %>
+                    
                     </div>
                 </div>
             </header>
@@ -67,7 +74,7 @@
                         	<div class="profile-field">
                                 <label>Full Name</label>
                                 <div class="input-box glass-input">
-                                    <input type="text" id="fullName customer-name-input" minlength="5" maxlength="35" name="fullName" value="<%= user.getFullName() %>" required disabled>
+                                    <input type="text" id="fullName customer-username-input" minlength="5" maxlength="35" name="fullName" value="<%= user.getFullName() %>" required disabled>
                                     <i class="icon fas fa-user"></i>
                                 </div>
                             </div>
@@ -94,9 +101,9 @@
                                 <div class="gender-display glass-input" id="gender-display"><%= user.getGender() %></div>
                                 <div class="gender-edit hidden">
                                     <div class="radio-group">
-                                        <label><input type="radio" id="gender" name="gender" value="male" checked> Male</label>
-                                        <label><input type="radio" id="gender" name="gender" value="female"> Female</label>
-                                        <label><input type="radio" id="gender" name="gender" value="other"> Other</label>
+                                        <label><input type="radio" id="gender" name="gender" value="Male"> Male</label>
+                                        <label><input type="radio" id="gender" name="gender" value="Female"> Female</label>
+                                        <label><input type="radio" id="gender" name="gender" value="Other"> Other</label>
                                     </div>
                                 </div>
                             </div>
@@ -130,7 +137,7 @@
                                 <label>New Password</label>
                                 <div class="input-box glass-input">
                                     <input type="password" id="password secondary-address-input" minlength="6" name="password" value="<%= user.getPassword() %>" placeholder="Your Password"disabled>
-                                    <i class="icon fas fa-building"></i>
+                                    <i class="icon fas fa-lock"></i>
                                 </div>
                             </div>
                             
@@ -138,11 +145,9 @@
                         
                         	<% if (request.getAttribute("message") != null) { %>
     	        	    	<p style="color: green;"><%= request.getAttribute("message") %></p>
-    	        	    	<script>showNotification('<%= request.getAttribute("message") %>')</script>
         	    			<% } %>
             				<% if (request.getAttribute("error") != null) { %>
                 			<p style="color: red;"><%= request.getAttribute("error") %></p>
-                			<script>showNotification('<%= request.getAttribute("error") %>', type = "error")</script>
             				<% } %>
                         
                         <div class="form-actions hidden">
@@ -186,7 +191,7 @@
         </div>
     </div>
     
-    <script src="assets/main.js"></script>
-    <script src="assets/customer-dashboard.js"></script>
-</body>
+    <!--  <script src="assets/main.js"></script> -->
+    <script src="assets/dashboards.js"></script>
+    </body>
 </html>

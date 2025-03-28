@@ -20,10 +20,11 @@
         <div class="sidebar glass-card">
             <h2 class="logo"><i class="fas fa-key"></i>Brand</h2>
             <ul class="nav-links">
-                <li class="active"><a href="customer.html"><i class="fas fa-user"></i> My Profile</a></li>
-                <li><a href="bookings.html"><i style="margin: 0 0 0 3px;" class="fas fa-calendar"></i> Bookings</a></li>
+                <li><a href="#"><i class="fas fa-building"></i> Portfolio</a></li>
+                <li><a href="#"><i style="margin: 0 0 0 3px;" class="fas fa-calendar"></i> Bookings</a></li>
                 <li><a href="#"><i class="fas fa-images"></i> Portfolio</a></li>
-                <li><a href="favorites.html"><i style="margin: 0 3px 0 5px;" class="fas fa-dollar-sign"></i> Earnings</a></li>
+                <li><a href="#"><i style="margin: 0 3px 0 5px;" class="fas fa-dollar-sign"></i> Earnings</a></li>
+                <li class="active"><a href="customer.html"><i class="fas fa-user"></i> My Profile</a></li>
                 <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li> 
             </ul>
             <div class="sidebar-footer">
@@ -95,9 +96,9 @@
                                 <div class="gender-display glass-input" id="gender-display"><%= photographer.getGender() %></div>
                                 <div class="gender-edit hidden">
                                     <div class="radio-group">
-                                        <label><input type="radio" id="gender" name="gender" value="male" checked> Male</label>
-                                        <label><input type="radio" id="gender" name="gender" value="female"> Female</label>
-                                        <label><input type="radio" id="gender" name="gender" value="other"> Other</label>
+                                        <label><input type="radio" id="gender" name="gender" value="Male" checked> Male</label>
+                                        <label><input type="radio" id="gender" name="gender" value="Female"> Female</label>
+                                        <label><input type="radio" id="gender" name="gender" value="Other"> Other</label>
                                     </div>
                                 </div>
                             </div>
@@ -131,7 +132,7 @@
                                 <label>New Password</label>
                                 <div class="input-box glass-input">
                                     <input type="password" id="password secondary-address-input" minlength="6" name="password" value="<%= photographer.getPassword() %>" placeholder="Your Password"disabled>
-                                    <i class="icon fas fa-building"></i>
+                                    <i class="icon fas fa-lock"></i>
                                 </div>
                             </div>
                             
@@ -139,11 +140,9 @@
                         
                         	<% if (request.getAttribute("message") != null) { %>
     	        	    	<p style="color: green;"><%= request.getAttribute("message") %></p>
-    	        	    	<script>showNotification('<%= request.getAttribute("message") %>')</script>
         	    			<% } %>
             				<% if (request.getAttribute("error") != null) { %>
                 			<p style="color: red;"><%= request.getAttribute("error") %></p>
-                			<script>showNotification('<%= request.getAttribute("error") %>', type = "error")</script>
             				<% } %>
                         
                         <div class="form-actions hidden">
@@ -190,7 +189,7 @@
         </div>
     </div>
     
-    <script src="assets/main.js"></script>
-    <script src="assets/customer-dashboard.js"></script>
+    <!--  --><script src="assets/main.js"></script>
+    <script src="assets/dashboards.js"></script>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class PhotographerServlet extends HttpServlet {
             if (validator.isDuplicateUsername(username)) {
                 request.setAttribute("errorMessage", "Username already exists! Please choose a different username.");
                 request.getRequestDispatcher("photographer-signup.jsp").forward(request, response);
-                response.sendRedirect("photographer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Username already exists! Please choose a different username.", "UTF-8"));
+                //response.sendRedirect("photographer-signup.jsp?type=error&message=" + java.net.URLEncoder.encode("Username already exists! Please choose a different username.", "UTF-8"));
                 return;
             }
             

@@ -448,18 +448,6 @@ form .input-box {
     line-height: 1.4;
 }
 
-/* Additional field for portfolio */
-.portfolio-upload {
-    margin: 15px 0;
-}
-
-.portfolio-upload label {
-    display: block;
-    margin-bottom: 8px;
-    color: white;
-    font-size: 0.9em;
-}
-
 /* Custom File Upload Styling */
 .file-upload-wrapper {
     display: flex;

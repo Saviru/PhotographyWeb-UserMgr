@@ -65,9 +65,9 @@
                                 <i class="icon fas fa-venus-mars"></i>
                             </div>
                             <div class="radio-group">
-                                <label><input type="radio" id="gender" name="gender" value="male" required> Male</label>
-                                <label><input type="radio" id="gender" name="gender" value="female" required> Female</label>
-                                <label><input type="radio" id="gender" name="gender" value="other" required> Other</label>
+                                <label><input type="radio" id="gender" name="gender" value="Male" required> Male</label>
+                                <label><input type="radio" id="gender" name="gender" value="Female" required> Female</label>
+                                <label><input type="radio" id="gender" name="gender" value="Other" required> Other</label>
                             </div>
                         </div>
 
@@ -107,20 +107,9 @@
                         <div class="login-register">
                             <p>Already have an account? <a href="customer-login.jsp">Login</a></p>
                             
-							<%
-								String errorType = request.getParameter("type");
-								String errorMessage = request.getParameter("message");
-								if (errorType != null && errorMessage != null) {
-							%>
-    								<div style="color: red;">
-        							<%= errorMessage %>
-   									</div>
-   									<script>
-        							showAuthNotification("<%= errorMessage.replace("\"", "\\\"") %>", "error");
-    								</script>
-							<%
-			                    }	
-							%>
+							<% if (request.getAttribute("errorMessage") != null) { %>
+        						<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+   							<% } %>
 
                         </div>
                     </form>

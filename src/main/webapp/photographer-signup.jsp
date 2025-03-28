@@ -64,9 +64,9 @@
                                 <i class="icon fas fa-venus-mars"></i>
                             </div>
                             <div class="radio-group">
-                                <label><input type="radio" name="gender" value="male" required> Male</label>
-                                <label><input type="radio" name="gender" value="female" required> Female</label>
-                                <label><input type="radio" name="gender" value="other" required> Other</label>
+                                <label><input type="radio" name="gender" value="Male" required> Male</label>
+                                <label><input type="radio" name="gender" value="Female" required> Female</label>
+                                <label><input type="radio" name="gender" value="Other" required> Other</label>
                             </div>
                         </div>
 
@@ -88,7 +88,7 @@
                             <i class="icon fas fa-camera"></i>
                         </div>
                         
-                        <div class="portfolio-upload">
+                        <!--  <div class="portfolio-upload">
                             <label for="portfolio">Portfolio Samples (Optional)</label>
                             <div class="file-upload-wrapper">
                                 <input type="file" id="portfolio" name="portfolio" multiple accept="image/*" class="hidden-file-input">
@@ -97,7 +97,7 @@
                                 </button>
                                 <span class="file-info">No files selected</span>
                             </div>
-                        </div>
+                        </div> -->
                         
                         <div class="input-box">
                             <input type="password" id="photographer-password-input" name="password" required placeholder=" ">
@@ -122,20 +122,10 @@
                         <div class="login-register">
                             <p>Already have an account? <a href="photographer-login.jsp">Login</a></p>
                             
-                            <%
-								String errorType = request.getParameter("type");
-								String errorMessage = request.getParameter("message");
-								if (errorType != null && errorMessage != null) {
-							%>
-    								<div style="color: red;">
-        							<%= errorMessage %>
-   									</div>
-   									<script>
-        							showAuthNotification("<%= errorMessage.replace("\"", "\\\"") %>", "error");
-    								</script>
-							<%
-			                    }	
-							%>
+                            <% if (request.getAttribute("errorMessage") != null) { %>
+        						<p style="color: red;"><%= request.getAttribute("errorMessage") %></p>
+   							<% } %>
+						
                         </div>
                     </form>
                 </div>

@@ -1,11 +1,5 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Generate bokeh lights
-    createBokehLights(35);
     
-    // Initialize cursor interaction with a delay to ensure elements are ready
-    setTimeout(() => {
-        initCursorInteraction();
-    }, 200);
     
     // Password visibility toggle
     const passwordField = document.getElementById('password');

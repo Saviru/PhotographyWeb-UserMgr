@@ -8,6 +8,7 @@ public class User {
     private String gender;
     private String address;
     private String phone;
+
     
     public User() {
     	this.fullName = "Null";
@@ -28,6 +29,14 @@ public class User {
         setAddress(address); // Using setter to validate/transform address
         this.phone = phone;
     }
+    
+    public String getDefaultProfilePic() {
+		 if (gender!="Hidden") {
+			return gender.toLowerCase() + ".gif";
+		} else {
+			return "unknown.gif";
+		}
+	}
     
     public String getFullName() {
     	return fullName;

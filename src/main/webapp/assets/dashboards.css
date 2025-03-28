@@ -120,6 +120,7 @@ body {
 .nav-links li.active a {
     color: #fff;
     border-left-color: #fff;
+    border-radius: 10px 0 0 10px;
     font-weight: 500;
 }
 
