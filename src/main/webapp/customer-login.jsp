@@ -37,7 +37,7 @@
         <div class="logreg-box">
             <div class="form-container active">
                 <div class="form-box login">
-                    <form action="LoginServlet" method="post">
+                    <form action="../LoginServlet" method="post">
                         <h2>Sign In</h2>
                         <div class="input-box">
                             <span class="icon"><i class="fas fa-envelope"></i></span>
