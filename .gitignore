@@ -21,3 +21,5 @@ workflows/
 
 # Environmet settings
 .settings/
+.clsspath
+.project
