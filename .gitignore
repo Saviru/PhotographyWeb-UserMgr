@@ -18,3 +18,6 @@ logs
 workflow/
 workflows/
 *.workflow
+
+# Environmet settings
+.settings/
