@@ -1,0 +1,350 @@
+name: Sync Repositories
+
+on:
+  # Trigger on pushes to any branch
+  push:
+    branches: [ '**' ]
+  # Optional: Allow manual triggering
+  workflow_dispatch:
+    inputs:
+      force_push:
+        description: 'Force push to target repository'
+        required: false
+        default: 'false'
+        type: choice
+        options:
+          - 'true'
+          - 'false'
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    
+    # Ensure proper permissions
+    permissions:
+      contents: write
+      
+    steps:
+      - name: Checkout Source Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          path: source-repo
+      
+      - name: Debug Workspace
+        run: |
+          pwd
+          ls -la
+          echo "Current directory structure:"
+          find . -type d -maxdepth 2
+      
+      - name: Extract branch name from push event
+        run: |
+          echo "SOURCE_BRANCH=${GITHUB_REF#refs/heads/}" >> $GITHUB_ENV
+        
+      - name: Load Environment Variables
+        run: |
+          cd source-repo || exit 1
+          echo "Current directory: $(pwd)"
+          
+          if [ -f .env ]; then
+            echo "Loading configuration from .env file"
+            set -a
+            . ./.env
+            set +a
+            echo "TARGET_REPO_URL=$TARGET_REPO_URL" >> $GITHUB_ENV
+            
+            if [ -n "$TARGET_BRANCH" ]; then
+              echo "TARGET_BRANCH=$TARGET_BRANCH" >> $GITHUB_ENV
+            else
+              if [ "$SOURCE_BRANCH" = "main" ]; then
+                echo "TARGET_BRANCH=RepoBot" >> $GITHUB_ENV
+              else
+                echo "TARGET_BRANCH=$SOURCE_BRANCH" >> $GITHUB_ENV
+              fi
+            fi
+            
+            # Get co-authors if specified
+            if [ -n "$CO_AUTHORS" ]; then
+              echo "CO_AUTHORS=$CO_AUTHORS" >> $GITHUB_ENV
+            fi
+          else
+            echo "No .env file found, using repository secrets"
+            echo "TARGET_REPO_URL=${{ secrets.TARGET_REPO_URL }}" >> $GITHUB_ENV
+            
+            if [ "$SOURCE_BRANCH" = "main" ]; then
+              echo "TARGET_BRANCH=RepoBot" >> $GITHUB_ENV
+            else
+              echo "TARGET_BRANCH=$SOURCE_BRANCH" >> $GITHUB_ENV
+            fi
+          fi
+      
+      - name: Get Source Repo Stats
+        run: |
+          echo "Checking source repository in $(pwd)/source-repo"
+          if [ ! -d "source-repo/.git" ]; then
+            echo "ERROR: source-repo/.git directory is missing!"
+            ls -la source-repo
+            exit 1
+          fi
+          
+          cd source-repo
+          echo "Getting commit information..."
+          
+          LAST_COMMIT=$(git log -1 --pretty=format:'%H')
+          LAST_COMMIT_MSG=$(git log -1 --pretty=format:'%s')
+          LAST_COMMIT_AUTHOR=$(git log -1 --pretty=format:'%an')
+          LAST_COMMIT_DATE=$(git log -1 --pretty=format:'%ad' --date=format:'%Y-%m-%d %H:%M:%S')
+          LAST_COMMIT_FILES=$(git show --name-only --format='' $LAST_COMMIT | wc -l)
+          
+          echo "LAST_COMMIT=$LAST_COMMIT" >> $GITHUB_ENV
+          echo "LAST_COMMIT_MSG=$LAST_COMMIT_MSG" >> $GITHUB_ENV
+          echo "LAST_COMMIT_AUTHOR=$LAST_COMMIT_AUTHOR" >> $GITHUB_ENV
+          echo "LAST_COMMIT_DATE=$LAST_COMMIT_DATE" >> $GITHUB_ENV
+          echo "LAST_COMMIT_FILES=$LAST_COMMIT_FILES" >> $GITHUB_ENV
+          
+          echo "Commit info collected successfully"
+      
+      - name: Checkout Target Repository
+        id: checkout-target
+        env:
+          GH_PAT: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          # Clone the target repository using token
+          echo "Cloning target repository: $TARGET_REPO_URL"
+          git clone https://x-access-token:${GH_PAT}@${TARGET_REPO_URL#https://} target-repo
+          echo "Target repo clone status: $?"
+        continue-on-error: true  # Continue if target repo doesn't exist yet
+      
+      - name: Setup Target Repository
+        env:
+          GH_PAT: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          if [ ! -d "target-repo/.git" ]; then
+            echo "Target repository not found, creating a new one"
+            mkdir -p target-repo
+            cd target-repo
+            git init
+            git checkout -b $TARGET_BRANCH
+            echo "# Initial commit" > README.md
+            git add README.md
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            
+            # Create initial commit message
+            COMMIT_MSG="Initial commit"
+            
+            # Add co-authors if specified
+            if [ -n "$CO_AUTHORS" ]; then
+              IFS=',' read -ra AUTHORS <<< "$CO_AUTHORS"
+              COMMIT_MSG="$COMMIT_MSG"$'\n\n'
+              for author in "${AUTHORS[@]}"; do
+                COMMIT_MSG="$COMMIT_MSG"$'\n'"Co-authored-by: $author"
+              done
+            fi
+            
+            git commit -m "$COMMIT_MSG"
+            git remote add origin https://x-access-token:${GH_PAT}@${TARGET_REPO_URL#https://}
+            git push -u origin $TARGET_BRANCH
+          else
+            cd target-repo
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git checkout $TARGET_BRANCH 2>/dev/null || git checkout -b $TARGET_BRANCH
+          fi
+      
+      - name: Prepare Source Files
+        run: |
+          # Make a copy of source repo without workflow files
+          mkdir -p clean-source
+          cd source-repo
+          
+          # Copy all files except .github/workflows directory
+          find . -type f -not -path "./.git*" -not -path "./.github/workflows*" -exec cp --parents {} ../clean-source/ \;
+          
+          # Copy dot files except .git and .github/workflows
+          find . -name ".*" -type f -not -path "./.git*" -not -path "./.github/workflows*" -exec cp --parents {} ../clean-source/ \;
+          
+          # Create other directories that might be needed, but not .github/workflows
+          find . -type d -not -path "./.git*" -not -path "./.github/workflows*" -not -path "./.github" | while read dir; do
+            mkdir -p "../clean-source/$dir"
+          done
+          
+          # Create .github directory if it exists but don't copy workflows
+          if [ -d ".github" ]; then
+            mkdir -p "../clean-source/.github"
+            find .github -type f -not -path "*.github/workflows*" -exec cp --parents {} ../clean-source/ \;
+          fi
+          
+          echo "Source files prepared without workflow files"
+          ls -la ../clean-source
+      
+      - name: Sync Files
+        env:
+          GH_PAT: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          # Make sure we start from the workspace root
+          cd "$GITHUB_WORKSPACE"
+          
+          echo "Current directory: $(pwd)"
+          echo "Directories available:"
+          ls -la
+          
+          # Create a temporary copy of .git directory
+          echo "Backing up .git directory from target repo"
+          cd target-repo
+          if [ ! -d ".git" ]; then
+            echo "ERROR: .git directory is missing in target repo!"
+            ls -la
+            exit 1
+          fi
+          cp -r .git ../git-backup
+          # Remove all files except .git
+          echo "Removing files from target repo (preserving .git)"
+          find . -mindepth 1 -not -path "./.git*" -exec rm -rf {} \; 2>/dev/null || true
+          
+          echo "Copying files from clean source to target"
+          cd "$GITHUB_WORKSPACE"
+          cp -r clean-source/* target-repo/ 2>/dev/null || true
+          cp -r clean-source/.[^.]* target-repo/ 2>/dev/null || true
+          
+          # Remove any .git that was copied over
+          rm -rf target-repo/.git
+          # Restore the original .git directory
+          cp -r git-backup target-repo/.git
+          
+          echo "Files in target repo after copy:"
+          ls -la target-repo/
+          
+          # Verify .git directory exists
+          if [ ! -d "target-repo/.git" ]; then
+            echo "ERROR: .git directory is missing after file copy!"
+            exit 1
+          fi
+          
+          # Prepare commit message with co-authors if specified
+          COMMIT_MSG="Sync files from source repository"
+          if [ -n "$CO_AUTHORS" ]; then
+            IFS=',' read -ra AUTHORS <<< "$CO_AUTHORS"
+            COMMIT_MSG="$COMMIT_MSG"$'\n\n'
+            for author in "${AUTHORS[@]}"; do
+              COMMIT_MSG="$COMMIT_MSG"$'\n'"Co-authored-by: $author"
+            done
+          fi
+          
+          # Perform git operations
+          cd target-repo
+          git add --all
+          
+          if git status --porcelain | grep .; then
+            git commit -m "$COMMIT_MSG"
+            echo "SYNCED_COMMITS=1" >> $GITHUB_ENV
+          else
+            echo "No changes to commit"
+            echo "SYNCED_COMMITS=0" >> $GITHUB_ENV
+          fi
+      
+      - name: Create Status Markdown File
+        run: |
+          cd target-repo
+          
+          # Create markdown file with sync details
+          cat > sync-status.md << EOF
+          # Repository Sync Status
+          
+          Last synchronized on: **$(date -u "+%Y-%m-%d %H:%M:%S")**
+          
+          ## Latest Commit Details
+          
+          | Detail | Value |
+          | ------ | ----- |
+          | Commit Hash | \`${LAST_COMMIT}\` |
+          | Commit Message | ${LAST_COMMIT_MSG} |
+          | Author | ${LAST_COMMIT_AUTHOR} |
+          | Date | ${LAST_COMMIT_DATE} |
+          | Files Changed | ${LAST_COMMIT_FILES} |
+          
+          
+          > Synced By Automatic Repository Syncing Bot
+          
+          
+          ###### Copyright © 2025 Saviru Kashmira Atapattu
+          
+          ## Sync Statistics
+          - Source Branch: \`${SOURCE_BRANCH}\`
+          - Target Branch: \`${TARGET_BRANCH}\`
+          EOF
+          
+          # Add co-authors information if present
+          if [ -n "$CO_AUTHORS" ]; then
+            echo -e "\n## Co-Authors\n" >> sync-status.md
+            IFS=',' read -ra AUTHORS <<< "$CO_AUTHORS"
+            for author in "${AUTHORS[@]}"; do
+              echo "- $author" >> sync-status.md
+            done
+          fi
+          
+          cat >> sync-status.md << EOF
+          
+          
+          ## Repository Links
+          - [Source Repository](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY})
+          - [Target Repository](${TARGET_REPO_URL})
+          
+          <p>You can use this bot to sync repositories easily. Just visit to the <b><a href="https://github.com/Saviru/Automatic_repo-sync-bot">Automatic Repository Syncing Bot repository</a></b> and follow the instructions to set up your own syncing bot.</p>
+          
+          - [Automatic Repository Syncing Bot](https://github.com/Saviru/Automatic_repo-sync-bot)
+          
+          <br>
+          <hr>
+          ### Thanks for using the Automatic Repository Syncing Bot! If you have any questions or feedback, please reach out to me.
+          #### GitHub: [@Saviru](https://github.com/Saviru)
+          #### Personal Website: [Saviru](https://saviru.github.io)
+          ###### Saviru Kashmira Atapattu.
+          
+          <hr>
+          <br>
+          *This file was automatically generated by the Automatic Repository Syncing Bot.*
+          
+          EOF
+          
+          # Prepare commit message with co-authors if specified
+          COMMIT_MSG="Update sync status [skip ci]"
+          if [ -n "$CO_AUTHORS" ]; then
+            IFS=',' read -ra AUTHORS <<< "$CO_AUTHORS"
+            COMMIT_MSG="$COMMIT_MSG"$'\n\n'
+            for author in "${AUTHORS[@]}"; do
+              COMMIT_MSG="$COMMIT_MSG"$'\n'"Co-authored-by: $author"
+            done
+          fi
+          
+          git add sync-status.md
+          git commit -m "$COMMIT_MSG"
+      
+      - name: Push Changes
+        env:
+          GH_PAT: ${{ secrets.SYNC_TOKEN }}
+        run: |
+          cd target-repo
+          
+          # Verify .git directory exists before pushing
+          if [ ! -d ".git" ]; then
+            echo "ERROR: .git directory is missing before push!"
+            ls -la
+            exit 1
+          fi
+          
+          # Push using token authentication
+          FORCE_OPTION=""
+          if [[ "${{ github.event.inputs.force_push }}" == "true" ]]; then
+            FORCE_OPTION="--force"
+          fi
+          
+          # Construct authenticated URL
+          AUTH_URL="https://x-access-token:${GH_PAT}@${TARGET_REPO_URL#https://}"
+          
+          # Push changes
+          echo "Pushing to $TARGET_BRANCH branch..."
+          git push $FORCE_OPTION $AUTH_URL $TARGET_BRANCH
+          
+          echo "✅ Successfully pushed changes to target repository"
