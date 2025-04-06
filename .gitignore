@@ -67,3 +67,39 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Logs
+logs
+*.log
+
+# dataconnect generated files
+.dataconnect
+
+# Ignore environment files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
+.env.*
+
+# Ignore workflow files
+.github/workflows/
+workflow/
+workflows/
+*.workflow
+
+# Environmet settings
+.settings/
+.clsspath
+.project
+
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+build/
