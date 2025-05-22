@@ -37,6 +37,7 @@ public class Photographer {
         this.originalSkills = getOriginalSkills();
         this.ratings = 0.0;
     }
+    
 
     public String getDefaultProfilePic() {
 		 if (gender!="Hidden") {

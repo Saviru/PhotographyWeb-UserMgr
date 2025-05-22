@@ -21,7 +21,7 @@
             <h2 class="logo"><i class="fas fa-key"></i>Brand</h2>
             <ul class="nav-links">
                 <li><a href="#"><i class="fas fa-building"></i> Dashboard</a></li>
-                <li><a href="#"><i style="margin: 0 0 0 3px;" class="fas fa-calendar"></i> Bookings</a></li>
+                <li><a href="photographer-orders.jsp"><i style="margin: 0 0 0 3px;" class="fas fa-calendar"></i> Bookings</a></li>
                 <li><a href="#"><i style="margin: 0 3px 0 5px;" class="fas fa-dollar-sign"></i> Earnings</a></li>
                 <li><a href="photographer_chatList.jsp"><i class="fas fa-comments"></i> Messages</a></li>
                 <li><a href="photographer.jsp"><i class="fas fa-user"></i> My Profile</a></li>

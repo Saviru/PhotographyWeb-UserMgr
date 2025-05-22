@@ -74,9 +74,8 @@ public class PhotographerServlet extends HttpServlet {
 				return;
 			}
             
-            
             try (FileWriter writer = new FileWriter(FILE_PATH, true)) {
-                writer.write(photographer.toString()+ ", " + defaults + System.lineSeparator());
+                writer.write(photographer.toString()+ ", " + defaults + ", 0.0" + System.lineSeparator());
             }
             
             UserDAO registerChat = new UserDAO();

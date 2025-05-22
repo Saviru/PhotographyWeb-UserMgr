@@ -147,7 +147,7 @@ function displayPhotographers(photographersArray) {
                 <p>${photographer.specialty}</p>
                 <div class="rating">
                     ${starsHTML}
-                    <span>(${photographer.reviewCount} reviews)</span>
+                    <span>(${photographer.reviewCount} Rating)</span>
                 </div>
                 <button class="btn-animated view-details" data-id="${photographer.id}">
                     <i class="fas fa-info-circle"></i> View Details
@@ -156,7 +156,7 @@ function displayPhotographers(photographersArray) {
                     <button class="btn-animated message-btn" data-id="${photographer.id}" onclick="window.location.href='lookupUser?username=${photographer.username}&email=${photographer.email}'">
                         <i class="fas fa-envelope"></i> Message
                     </button>
-                    <button class="btn-animated book-now-btn" data-id="${photographer.email}">
+                    <button class="btn-animated book-now-btn" data-id="${photographer.email}" onclick="window.location.href='customer-packages.jsp?name=${photographer.username}'">
                         <i class="fas fa-calendar-check"></i> Book Now
                     </button>
                 </div>
@@ -294,10 +294,7 @@ function showPreviousImage() {
 function handleBooking(photographerId, photographers) {
     const photographer = photographers.find(p => p.id === photographerId);
     if (photographer) {
-        // For demo purposes, just redirect to a booking page
-        // In a real application, you could open a booking form modal or redirect to a booking page
-        alert(`You're about to book ${photographer.name}. In a real application, this would take you to a booking form.`);
-        // window.location.href = `booking.html?photographer=${photographerId}`;
+        window.location.href=`customer-packages.jsp?name=${photographer.username}`;
     }
 }
 
