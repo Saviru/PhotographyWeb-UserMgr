@@ -1,5 +1,6 @@
 package com.chat.util;
 
+import io.github.cdimascio.dotenv.Dotenv;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -10,10 +11,12 @@ import java.sql.Statement;
  * Database utility class for managing connections and resources
  */
 public class DBUtil {
+    private final Dotenv dotenv = Dotenv.load();
+    
     // Database connection parameters
-    private static final String JDBC_URL = "jdbc:mysql://localhost:3306/chatapp?useSSL=false&serverTimezone=UTC";
-    private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "password";
+    private static final String JDBC_URL = dotenv.get("DB_URL");
+    private static final String JDBC_USER = dotenv.get("DB_USER");
+    private static final String JDBC_PASSWORD = dotenv.get("DB_PASS");
     
     // You should adjust these values based on your actual database configuration
     
